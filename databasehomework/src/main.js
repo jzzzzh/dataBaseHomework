@@ -7,6 +7,9 @@ import VueAxios from "vue-axios";
 import VueCookies from "vue-cookies";
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
+import * as echarts from 'echarts'
+
+app.echarts=echarts
 
 axios.defaults.baseURL = "/api";
 
