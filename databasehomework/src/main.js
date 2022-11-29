@@ -9,12 +9,12 @@ import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
 import * as echarts from 'echarts'
 
-app.echarts=echarts
 
 axios.defaults.baseURL = "/api";
 
-createApp(App)
-  .use(store)
+const app = createApp(App);
+app.config.globalProperties.$echarts = echarts;
+app.use(store)
   .use(VueAxios, axios)
   .use(router)
   .use(VueCookies)

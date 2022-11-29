@@ -1,4 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
+const path = require('path');
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
@@ -20,5 +21,25 @@ module.exports = defineConfig({
         }
       }
     }
-  }
+  },
+  pluginOptions: {
+    "style-resources-loader": {
+      preProcessor: "less",
+      patterns: [
+        // 引入公共文件
+        path.resolve(__dirname, "./src/assets/less/common.less")
+      ]
+    }
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        lessOptions: {
+          modifyVars: {
+            'primary-color': '#ec6800'
+          },
+          javascriptEnabled: true,
+        },
+      },
+    },}
 });

@@ -13,7 +13,7 @@ import orderList from "@/page/orderList";
 import shopList from "@/page/shopList";
 import userList from "@/page/userList";
 import visitor from "@/page/visitor";
-// import myTest from "@/page/test";
+import test from "@/page/test";
 const routes = [
   {
     path: "/addfood",
@@ -56,7 +56,7 @@ const routes = [
     component: info
   },
   {
-    path: "/login",
+    path: "/",
     name: "login",
     component: login
   },
