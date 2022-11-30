@@ -41,7 +41,6 @@
   </template>
   
   <script>
-  import {mapState} from 'vuex';
   import axios from "axios";
   export default {
     data() {
@@ -57,7 +56,18 @@
       };
     },
     mounted() {
-      this.draw(this.yanzhen_arr)
+      this.draw(this.yanzhen_arr);
+      if(this.$cookies.get("token")!= null && this.$cookies.get("uuid")!= null && this.$cookies.get("model")!= null)
+      {
+        let token = this.$cookies.get("token");
+        let name = this.$cookies.get("uuid");
+        let model = this.$cookies.get("model");
+        this.$store.commit("setmyToken", token);
+        this.$store.commit("setmyName", name);
+        this.$store.commit("setModel", model);
+        this.$store.commit("setIsLogin");
+        this.$router.push("/home");
+      }
     },
     watch: {
 
@@ -90,16 +100,20 @@
               url = 'teacher/checkPassword'
             }
             axios.post(url ,data,config).then(res=>{
-              console.log(res);
+              // console.log(res);
               let token = res.data.data.token;
               let name = this.formLabelAlign.uuid;
+              let model = this.formLabelAlign.model
               this.$store.commit("setmyToken", token);
               this.$store.commit("setmyName", name);
+              this.$store.commit("setModel", model);
               this.$store.commit("setIsLogin");
               // console.log(this.$store.state.username);
               this.$cookies.set("token", token, "1D");
+              this.$cookies.set("uuid", name, "1D");
+              this.$cookies.set("model", model, "1D");
               // console.log(this.$cookies.get("token"));
-              // this.$router.push("/index");
+              this.$router.push("/home");
               alert("登录成功");
             }).catch(err=>{
               console.log(err);
