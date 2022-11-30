@@ -4,7 +4,8 @@ export default createStore({
   state: {
     token: "",
     is_login: false,
-    username: ""
+    username: "",
+    model:""
   },
   getters: {
     myName(state) {
@@ -12,21 +13,35 @@ export default createStore({
     },
     myToken(state) {
       return state.token;
+    },
+    myModel(state)
+    {
+      return state.model;
     }
   },
   mutations: {
     setmyToken(state, mytoken) {
       state.token = mytoken;
-      state.islogin = true;
+
     },
     setmyName(state, myName) {
       state.username = myName;
+    },
+    setIsLogin(state)
+    {
+      state.islogin = true;
+    },
+    setModel(state, myModel)
+    {
+      state.model = myModel;
     },
     logout(state) {
       state.token = "";
       state.username = "";
       state.islogin = false;
-    }
+      state.model = "";
+    },
+
   },
   actions: {},
   modules: {}
