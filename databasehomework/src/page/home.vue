@@ -196,9 +196,11 @@
         let token = this.$cookies.get("token");
         let name = this.$cookies.get("uuid");
         let model = this.$cookies.get("model");
+        console.log(model);
         this.$store.commit("setmyToken", token);
         this.$store.commit("setmyName", name);
         this.$store.commit("setModel", model);
+        console.log(that.$store.state.model)
         this.$store.commit("setIsLogin");
       }
       if(that.$store.state.model == 0)
@@ -208,7 +210,7 @@
       else {
         that.isStudent = false;
       }
-      if(this.isStudent = true)
+      if(this.isStudent == true)
       {
         let data = new FormData();
         console.log(this.$store.state.username);
