@@ -1,7 +1,7 @@
 <template>
     <div>
       <div v-show="isStudent" style="margin: 20px">
-        <el-card class="box-card">
+        <el-card class="box-card" shadow="hover">
           <template #header>
             <div class="card-header">
               <span>欢迎光临.{{student.name}}</span>
@@ -45,7 +45,7 @@
         </el-card>
       </div>
       <div v-show="!isStudent" style="margin: 20px">
-      <el-card class="box-card">
+      <el-card class="box-card" shadow="hover">
         <template #header>
           <div class="card-header">
             <span>欢迎光临, {{teacher.name}}</span>
@@ -86,7 +86,7 @@
       </el-card>
       </div>
       <div style="margin: 20px">
-        <el-card class="box-card">
+        <el-card class="box-card" shadow="hover">
           <template #header>
             <div class="card-header">
               <span>公告栏</span>
@@ -99,13 +99,57 @@
       </div>
       <el-drawer v-model="visible" :show-close="false">
         <template #header="{ close, titleId, titleClass }">
-          <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+          <h4 :id="titleId" :class="titleClass">修改个人信息</h4>
           <el-button type="danger" @click="close">
             <el-icon class="el-icon--left"><CircleCloseFilled /></el-icon>
-            Close
+            关闭
           </el-button>
         </template>
-        This is drawer content.
+        <el-form
+          label-position="top"
+          label-width="100px"
+          :model="student"
+          style="max-width: 460px"
+          v-show="isStudent"
+        >
+          <el-form-item label="姓名">
+            <el-input v-model="student.name" />
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-input v-model="student.sex" />
+          </el-form-item>
+          <el-form-item label="年级">
+            <el-input v-model="student.grade" />
+          </el-form-item>
+          <el-form-item label="班级">
+            <el-input v-model="student.class_num" />
+          </el-form-item>
+          <el-form-item label="专业">
+            <el-input v-model="student.major" />
+          </el-form-item>
+        </el-form>
+
+        <el-form
+          label-position="top"
+          label-width="100px"
+          :model="teacher"
+          style="max-width: 460px"
+          v-show="!isStudent"
+        >
+          <el-form-item label="姓名">
+            <el-input v-model="teacher.name" />
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-input v-model="teacher.sex" />
+          </el-form-item>
+          <el-form-item label="专业">
+            <el-input v-model="teacher.major" />
+          </el-form-item>
+          <el-form-item label="年龄">
+            <el-input v-model="teacher.age" />
+          </el-form-item>
+        </el-form>
+        <el-button type="primary" @click="upload">提交</el-button>
       </el-drawer>
     </div>
   </template>
@@ -217,6 +261,43 @@
     methods: {
       changePassword() {
         this.$router.push('/ChangePassword');
+      },
+      upload()
+      {
+        let data = new FormData();
+        let url = "";
+        let config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "token": this.$store.state.token
+          },
+        };
+        if(this.isStudent)
+        {
+          data.append("name", this.student.name);
+          data.append("sex", this.student.sex);
+          data.append("grade", this.student.grade * 1);
+          data.append("class_num", this.student.class_num * 1);
+          data.append("major", this.student.major);
+          data.append("uuid", this.student.uuid);
+          url = "student/changeStudentInfo";
+        }
+        else
+        {
+            url = "teacher/changeTeacherInfo";
+            data.append("name", this.teacher.name);
+            data.append("sex", this.teacher.sex);
+            data.append("major", this.teacher.major);
+            data.append("uuid", this.teacher.uuid);
+            data.append("age", this.teacher.age);
+        }
+        axios.post(url,data,config).then(res=>{
+          // console.log(res);
+          alert("修改成功");
+        }).catch(err=>{
+          // console.log(err);
+          alert("修改失败");
+        })
       }
     }
   };
