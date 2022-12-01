@@ -13,7 +13,13 @@ import orderList from "@/page/orderList";
 import shopList from "@/page/shopList";
 import userList from "@/page/userList";
 import visitor from "@/page/visitor";
+import ChangePassword from "@/page/ChangePassword";
 const routes = [
+  {
+    path: '/ChangePassword',
+    name: 'ChangePassword',
+    component: ChangePassword
+  },
   {
     path: "/addfood",
     name: "addfood",

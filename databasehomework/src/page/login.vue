@@ -112,6 +112,7 @@
               this.$cookies.set("token", token, "1D");
               this.$cookies.set("uuid", name, "1D");
               this.$cookies.set("model", model, "1D");
+              this.$cookies.set("password", this.formLabelAlign.password, '1D');
               // console.log(this.$cookies.get("token"));
               this.$router.push("/home");
               alert("登录成功");

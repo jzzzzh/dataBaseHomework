@@ -36,7 +36,8 @@
             </el-descriptions>
           </div>
           <div>
-            <el-button type="danger"  @click="getInfo" data-s="student" style="margin-top: 20px">修改密码</el-button>
+            <el-button type="danger"  @click="changePassword" data-s="student" style="margin-top: 20px">修改密码</el-button>
+            <logout style="margin-top: 20px"></logout>
           </div>
         </el-card>
       </div>
@@ -74,6 +75,7 @@
         </div>
         <div>
           <el-button type="danger" @click="changePassword" data-s="teacher" style="margin-top: 20px">修改密码</el-button>
+          <logout style="margin-top: 20px"></logout>
         </div>
       </el-card>
       </div>
@@ -94,9 +96,10 @@
   
   <script>
   import axios from "axios";
-
+  import logout from "@/components/logout";
   export default {
     components: {
+      logout
     },
     data () {
       return {
@@ -193,8 +196,8 @@
       }
     },
     methods: {
-      changePassword(s){
-        console.log(s);
+      changePassword(){
+        this.$router.push('/ChangePassword');
       },
       getInfo()
       {
