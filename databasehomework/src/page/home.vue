@@ -4,7 +4,7 @@
         <el-card class="box-card" shadow="hover">
           <template #header>
             <div class="card-header">
-              <span>欢迎光临.{{student.name}}</span>
+              <span>欢迎光临，{{student.name}}</span>
             </div>
           </template>
           <div>
