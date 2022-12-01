@@ -14,6 +14,7 @@ import shopList from "@/page/shopList";
 import userList from "@/page/userList";
 import visitor from "@/page/visitor";
 import ChangePassword from "@/page/ChangePassword";
+import register from "@/page/register";
 const routes = [
   {
     path: '/ChangePassword',
@@ -21,9 +22,9 @@ const routes = [
     component: ChangePassword
   },
   {
-    path: "/addfood",
-    name: "addfood",
-    component: addfood
+    path: "/register",
+    name: "register",
+    component: register
   },
   {
     path: "/addshop",

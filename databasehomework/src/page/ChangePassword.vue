@@ -154,5 +154,15 @@ export default {
 </script>
 
 <style scoped>
-
+#canvas {
+  width:130px;
+  height:33px;
+  float: right;
+  margin-right: 1%;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 80px;
+}
 </style>

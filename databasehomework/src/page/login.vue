@@ -35,6 +35,7 @@
           </div>
         </el-form>
         <el-button class="loginButton" @click="upload" type="primary" style="width: 40%">登录</el-button>
+        <el-button class="loginButton" @click="this.$router.push('/register')" type="primary" style="width: 40%">注册</el-button>
       </el-card>
     </div>
     </div>
