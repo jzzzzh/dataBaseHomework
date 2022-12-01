@@ -38,6 +38,9 @@
           <div>
             <el-button type="danger"  @click="changePassword" data-s="student" style="margin-top: 20px">修改密码</el-button>
             <logout style="margin-top: 20px"></logout>
+            <el-button @click="visible = true" style="margin-top: 20px">
+              修改信息
+            </el-button>
           </div>
         </el-card>
       </div>
@@ -76,6 +79,9 @@
         <div>
           <el-button type="danger" @click="changePassword" data-s="teacher" style="margin-top: 20px">修改密码</el-button>
           <logout style="margin-top: 20px"></logout>
+          <el-button @click="visible = true" style="margin-top: 20px">
+            修改信息
+          </el-button>
         </div>
       </el-card>
       </div>
@@ -91,18 +97,31 @@
           </div>
         </el-card>
       </div>
+      <el-drawer v-model="visible" :show-close="false">
+        <template #header="{ close, titleId, titleClass }">
+          <h4 :id="titleId" :class="titleClass">This is a custom header!</h4>
+          <el-button type="danger" @click="close">
+            <el-icon class="el-icon--left"><CircleCloseFilled /></el-icon>
+            Close
+          </el-button>
+        </template>
+        This is drawer content.
+      </el-drawer>
     </div>
   </template>
   
   <script>
   import axios from "axios";
   import logout from "@/components/logout";
+  import { CircleCloseFilled } from '@element-plus/icons-vue'
   export default {
     components: {
-      logout
+      logout,
+      CircleCloseFilled
     },
     data () {
       return {
+        visible:false,
         student:{
           name:"",
           sex:"",
@@ -196,59 +215,8 @@
       }
     },
     methods: {
-      changePassword(){
+      changePassword() {
         this.$router.push('/ChangePassword');
-      },
-      getInfo()
-      {
-        if(this.isStudent = true)
-        {
-          let data = new FormData();
-          data.append("id", this.$store.state.username);
-          let config = {
-            headers: {
-              "Content-Type": "multipart/form-data ",
-              "token": this.$store.state.token
-            },
-          };
-          let url = "";
-          url = 'student/findByID';
-          axios.post(url,data,config).then(res=>{
-            console.log(res)
-            let data = res.data.data;
-            this.student.major = data.student.major;
-            this.student.sex = data.student.sex;
-            this.student.name = data.student.name;
-            this.student.uuid = data.student.uuid;
-            this.student.grade = data.student.grade;
-            this.student.class_num = data.student.class_num;
-          }).catch(err=>{
-            console.log(err);
-          })
-        }
-        else {
-          let data = new FormData();
-          data.append("id", this.$store.state.username);
-          let config = {
-            headers: {
-              "Content-Type": "multipart/form-data ",
-              "token": this.$store.state.token
-            },
-          };
-          let url = "";
-          url = 'teacher/findByID';
-          axios.post(url,data,config).then(res=>{
-            console.log(res)
-            let data = res.data.data;
-            this.teacher.major = data.teacher.major;
-            this.teacher.sex = data.teacher.sex;
-            this.teacher.name = data.teacher.name;
-            this.teacher.uuid = data.teacher.uuid;
-            this.teacher.age = data.teacher.age;
-          }).catch(err=>{
-            console.log(err);
-          })
-        }
       }
     }
   };
