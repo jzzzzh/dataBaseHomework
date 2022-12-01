@@ -196,7 +196,7 @@
         let token = this.$cookies.get("token");
         let name = this.$cookies.get("uuid");
         let model = this.$cookies.get("model");
-        console.log(model);
+        console.log(token);
         this.$store.commit("setmyToken", token);
         this.$store.commit("setmyName", name);
         this.$store.commit("setModel", model);
