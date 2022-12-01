@@ -92,7 +92,7 @@
 
 
       <div style="margin: 20px">
-        <el-card class="box-card" shadow="hover">
+        <el-card class="box-card" shadow="hover" v-show="Notice.isShow1">
           <template #header>
             <div class="card-header">
               <span>公告栏</span>
@@ -104,43 +104,53 @@
                 <el-card class="box-card">
                 <template #header>
                   <div class="card-header">
-                    <span>Card name</span>
+                    <span>{{NoticeDetail.Notice1.title}}</span>
                   </div>
                 </template>
-                <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                <div>
+                  <p>{{NoticeDetail.Notice1.detail}}</p>
+                  <p>{{NoticeDetail.Notice1.teachername}}</p>
+                  <p>{{NoticeDetail.Notice1.time}}</p>
+                </div>
               </el-card>
               </el-col>
               <el-col :span="8">
-                <el-card class="box-card">
+                <el-card class="box-card" shadow="hover" v-show="Notice.isShow2">
                   <template #header>
                     <div class="card-header">
-                      <span>Card name</span>
+                      <span>{{NoticeDetail.Notice2.title}}</span>
                     </div>
                   </template>
-                  <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                  <div>
+                    <p>{{NoticeDetail.Notice2.detail}}</p>
+                    <p>{{NoticeDetail.Notice2.teachername}}</p>
+                    <p>{{NoticeDetail.Notice2.time}}</p>
+                  </div>
                 </el-card>
               </el-col>
               <el-col :span="8">
-                <el-card class="box-card">
+                <el-card class="box-card" shadow="hover" v-show="Notice.isShow3">
                   <template #header>
                     <div class="card-header">
-                      <span>Card name</span>
+                      <span>{{NoticeDetail.Notice3.title}}</span>
                     </div>
                   </template>
-                  <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                  <div>
+                    <p>{{NoticeDetail.Notice3.detail}}</p>
+                    <p>{{NoticeDetail.Notice3.teachername}}</p>
+                    <p>{{NoticeDetail.Notice3.time}}</p>
+                  </div>
                 </el-card>
               </el-col>
             </el-row>
             <div style="display:flex;justify-content: center;">
-              <el-pagination background layout="prev, pager, next" :total="1000" style="margin-top: 20px;"/>
+              <el-pagination background layout="prev, pager, next" v-model:total="TotalNum" v-model:current-page="currentPage"
+                             v-model:page-size="pageSize" style="margin-top: 20px;" @current-change="handleChange"/>
             </div>
             
           </div>
         </el-card>
       </div>
-
-
-
 
 
 
@@ -205,10 +215,11 @@
   import axios from "axios";
   import logout from "@/components/logout";
   import { CircleCloseFilled } from '@element-plus/icons-vue'
+  import dayjs from "dayjs";
   export default {
     components: {
       logout,
-      CircleCloseFilled
+      CircleCloseFilled,
     },
     data () {
       return {
@@ -232,8 +243,38 @@
         },
         isStudent: true,
         notices:null,
+        num:0,
+        currentPage:1,
+        pageSize: 3,
+        TotalNum: 0,
+        Notice:{
+          isShow1: true,
+          isShow2: true,
+          isShow3: true,
+        },
+        NoticeDetail:{
+          Notice1:{
+            title:"",
+            detail:"",
+            time:null,
+            teachername:""
+          },
+          Notice2:{
+            title:"",
+            detail:"",
+            time:null,
+            teachername:""
+          },
+          Notice3:{
+            title:"",
+            detail:"",
+            time:null,
+            teachername:""
+          },
+        }
       };
     },
+
     computed: {
 
     },
@@ -296,7 +337,57 @@
         url2 = 'student/selectNoticeByStuID';
         axios.post(url2,data2, config2).then(res=>{
           console.log(res.data.data.notices[1]);
-          that.notices = res.data.data;
+          // console.log("len");
+          // console.log(Object.keys(res.data.data.notices).length)
+          that.TotalNum = Object.keys(res.data.data.notices).length;
+          let curr = that.currentPage;
+          let pagesize = that.pageSize;
+          let length = that.TotalNum;
+          if((curr-1)*pagesize+1 <= length && (curr-1)*pagesize+2 > length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = false;
+            that.Notice.isShow3 = false;
+          }
+          else if((curr-1)*pagesize+2 <= length && (curr-1)*pagesize+3 > length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = true;
+            that.Notice.isShow3 = false;
+          }
+          else if((curr-1)*pagesize+3 <= length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = true;
+            that.Notice.isShow3 = true;
+          }
+          that.notices = res.data.data.notices.reverse();
+          if(that.Notice.isShow1)
+          {
+            that.NoticeDetail.Notice1.title = that.notices[(curr-1)*pagesize].title;
+            that.NoticeDetail.Notice1.detail = that.notices[(curr-1)*pagesize].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice1.time =time;
+            that.NoticeDetail.Notice1.teachername = that.notices[(curr-1)*pagesize].teachername;
+          }
+          if(that.Notice.isShow2)
+          {
+            that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
+            that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice2.time = time;
+            that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
+          }
+
+          if(that.Notice.isShow3)
+          {
+            that.NoticeDetail.Notice3.title = that.notices[(curr-1)*pagesize+2].title;
+            that.NoticeDetail.Notice3.detail = that.notices[(curr-1)*pagesize+2].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize+2].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice3.time =time;
+            that.NoticeDetail.Notice3.teachername = that.notices[(curr-1)*pagesize+2].teachername;
+          }
+
         }).catch(err=>{
           console.log(err);
         })
@@ -334,10 +425,59 @@
         };
 
         let url2 = "";
-        url2 = 'student/selectNoticeByTeaID';
+        url2 = 'teacher/selectNoticeByTeaID';
         axios.post(url2,data2, config2).then(res=>{
           console.log(res);
-          that.notices = res.data.data;
+          that.TotalNum = Object.keys(res.data.data.notices).length;
+          let curr = that.currentPage;
+          let pagesize = that.pageSize;
+          let length = that.TotalNum;
+          if((curr-1)*pagesize+1 <= length && (curr-1)*pagesize+2 > length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = false;
+            that.Notice.isShow3 = false;
+          }
+          else if((curr-1)*pagesize+2 <= length && (curr-1)*pagesize+3 > length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = true;
+            that.Notice.isShow3 = false;
+          }
+          else if((curr-1)*pagesize+3 <= length)
+          {
+            that.Notice.isShow1 = true;
+            that.Notice.isShow2 = true;
+            that.Notice.isShow3 = true;
+          }
+          that.notices = res.data.data.notices.reverse();
+          if(that.Notice.isShow1)
+          {
+            that.NoticeDetail.Notice1.title = that.notices[(curr-1)*pagesize].title;
+            that.NoticeDetail.Notice1.detail = that.notices[(curr-1)*pagesize].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice1.time = time;
+            that.NoticeDetail.Notice1.teachername = that.notices[(curr-1)*pagesize].teachername;
+          }
+          if(that.Notice.isShow2)
+          {
+            that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
+            that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
+            that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
+          }
+
+          if(that.Notice.isShow3)
+          {
+            that.NoticeDetail.Notice3.title = that.notices[(curr-1)*pagesize+2].title;
+            that.NoticeDetail.Notice3.detail = that.notices[(curr-1)*pagesize+2].detail;
+            let time = dayjs(that.notices[(curr-1)*pagesize+2].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+            that.NoticeDetail.Notice3.time = time;
+            that.NoticeDetail.Notice3.teachername = that.notices[(curr-1)*pagesize+2].teachername;
+          }
+
+
         }).catch(err=>{
           console.log(err);
         })
@@ -384,6 +524,56 @@
           // console.log(err);
           alert("修改失败");
         })
+      },
+      handleChange()
+      {
+        let that = this;
+        let curr = that.currentPage;
+        let pagesize = that.pageSize;
+        let length = that.TotalNum;
+        if((curr-1)*pagesize+1 <= length && (curr-1)*pagesize+2 > length)
+        {
+          that.Notice.isShow1 = true;
+          that.Notice.isShow2 = false;
+          that.Notice.isShow3 = false;
+        }
+        else if((curr-1)*pagesize+2 <= length && (curr-1)*pagesize+3 > length)
+        {
+          that.Notice.isShow1 = true;
+          that.Notice.isShow2 = true;
+          that.Notice.isShow3 = false;
+        }
+        else if((curr-1)*pagesize+3 <= length)
+        {
+          that.Notice.isShow1 = true;
+          that.Notice.isShow2 = true;
+          that.Notice.isShow3 = true;
+        }
+        if(that.Notice.isShow1)
+        {
+          that.NoticeDetail.Notice1.title = that.notices[(curr-1)*pagesize].title;
+          that.NoticeDetail.Notice1.detail = that.notices[(curr-1)*pagesize].detail;
+          let time = dayjs(that.notices[(curr-1)*pagesize].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+          that.NoticeDetail.Notice1.time = time;
+          that.NoticeDetail.Notice1.teachername = that.notices[(curr-1)*pagesize].teachername;
+        }
+        if(that.Notice.isShow2)
+        {
+          that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
+          that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
+          let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+          that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
+          that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
+        }
+
+        if(that.Notice.isShow3)
+        {
+          that.NoticeDetail.Notice3.title = that.notices[(curr-1)*pagesize+2].title;
+          that.NoticeDetail.Notice3.detail = that.notices[(curr-1)*pagesize+2].detail;
+          let time = dayjs(that.notices[(curr-1)*pagesize+2].time).subtract(8, 'hour').format("YYYY年MM月DD日");
+          that.NoticeDetail.Notice3.time = time;
+          that.NoticeDetail.Notice3.teachername = that.notices[(curr-1)*pagesize+2].teachername;
+        }
       }
     }
   };
