@@ -1,5 +1,5 @@
 <template>
-    <div id="header">
+    <div id="sidebar">
       <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
@@ -8,12 +8,12 @@
   >
     <el-menu-item index="1">菜单</el-menu-item>
     <el-sub-menu index="2">
-      <template #title class="shezhi">设置</template>
+      <template #title>设置</template>
       <el-menu-item index="2-1">个人信息</el-menu-item>
       <el-menu-item index="2-2">更改信息</el-menu-item>
       <el-menu-item index="2-3">退出登录</el-menu-item>
     </el-sub-menu>
-
+    
     <div>
       <el-avatar> user </el-avatar>
     </div>
@@ -28,10 +28,17 @@
   export default {
     name:"header",
     data() {
+      return {
+        imgUrl
+      };
     },
     computed: {
+      ...mapState(['adminInfo'])
     },
     created () {
+      if (!this.adminInfo.id) {
+        this.updateAdminInfo();
+      }
     },
     methods: {
     }
@@ -39,9 +46,6 @@
   </script>
   
   <style lang="less" scoped>
-  .shezhi{
-    color: green;
-  }
   #header {
     display: flex;
     background-color: #eff2f7;

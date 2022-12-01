@@ -13,6 +13,8 @@ import orderList from "@/page/orderList";
 import shopList from "@/page/shopList";
 import userList from "@/page/userList";
 import visitor from "@/page/visitor";
+import test from "@/page/test";
+
 const routes = [
   {
     path: "/addfood",
@@ -78,6 +80,11 @@ const routes = [
     path: "/userList",
     name: "userList",
     component: userList
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: test
   },
   {
     path: "/visitor",
