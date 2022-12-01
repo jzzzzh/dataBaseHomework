@@ -49,7 +49,8 @@
           uuid: '',
           password: '',
           code: '',
-          model:null
+          model:null,
+
         },
         true_code: "",//保存正确的验证码
         yanzhen_arr:[],

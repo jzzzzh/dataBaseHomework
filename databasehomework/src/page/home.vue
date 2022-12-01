@@ -85,6 +85,12 @@
         </div>
       </el-card>
       </div>
+
+
+
+
+
+
       <div style="margin: 20px">
         <el-card class="box-card" shadow="hover">
           <template #header>
@@ -93,10 +99,51 @@
             </div>
           </template>
           <div>
-              <p>这是公告</p>
+            <el-row :gutter="20">
+              <el-col :span="8">
+                <el-card class="box-card">
+                <template #header>
+                  <div class="card-header">
+                    <span>Card name</span>
+                  </div>
+                </template>
+                <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+              </el-card>
+              </el-col>
+              <el-col :span="8">
+                <el-card class="box-card">
+                  <template #header>
+                    <div class="card-header">
+                      <span>Card name</span>
+                    </div>
+                  </template>
+                  <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                </el-card>
+              </el-col>
+              <el-col :span="8">
+                <el-card class="box-card">
+                  <template #header>
+                    <div class="card-header">
+                      <span>Card name</span>
+                    </div>
+                  </template>
+                  <div v-for="o in 4" :key="o" class="text item">{{ 'List item ' + o }}</div>
+                </el-card>
+              </el-col>
+            </el-row>
+            <div style="display:flex;justify-content: center;">
+              <el-pagination background layout="prev, pager, next" :total="1000" style="margin-top: 20px;"/>
+            </div>
+            
           </div>
         </el-card>
       </div>
+
+
+
+
+
+
       <el-drawer v-model="visible" :show-close="false">
         <template #header="{ close, titleId, titleClass }">
           <h4 :id="titleId" :class="titleClass">修改个人信息</h4>
@@ -183,7 +230,8 @@
           age:"",
           password:"",
         },
-        isStudent: true
+        isStudent: true,
+        notices:null,
       };
     },
     computed: {
@@ -235,6 +283,23 @@
         }).catch(err=>{
           console.log(err);
         })
+
+        let data2 = new FormData();
+        data2.append("stuuuid", this.$store.state.username * 1);
+        let config2 = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "token": this.$store.state.token
+          },
+        };
+        let url2 = "";
+        url2 = 'student/selectNoticeByStuID';
+        axios.post(url2,data2, config2).then(res=>{
+          console.log(res.data.data.notices[1]);
+          that.notices = res.data.data;
+        }).catch(err=>{
+          console.log(err);
+        })
       }
       else {
         let data = new FormData();
@@ -258,7 +323,26 @@
         }).catch(err=>{
           console.log(err);
         })
+
+        let data2 = new FormData();
+        data2.append("teacheruuid", this.$store.state.username * 1);
+        let config2 = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "token": this.$store.state.token
+          },
+        };
+
+        let url2 = "";
+        url2 = 'student/selectNoticeByTeaID';
+        axios.post(url2,data2, config2).then(res=>{
+          console.log(res);
+          that.notices = res.data.data;
+        }).catch(err=>{
+          console.log(err);
+        })
       }
+
     },
     methods: {
       changePassword() {
