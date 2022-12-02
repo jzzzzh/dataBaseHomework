@@ -20,7 +20,7 @@
           {{this.$store.state.model==0?"学生":"老师"}}
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="password" />
+          <el-input v-model="password" show-password/>
         </el-form-item>
       </el-form>
       <el-button class="loginButton" @click="checkPassword" type="primary" style="width: 40%">修改密码</el-button>
@@ -44,10 +44,10 @@
           {{this.$store.state.model==0?"学生":"老师"}}
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="ChangePassword" />
+          <el-input v-model="ChangePassword" show-password/>
         </el-form-item>
         <el-form-item label="再输入密码">
-          <el-input v-model="CheckChangePassword" />
+          <el-input v-model="CheckChangePassword" show-password/>
         </el-form-item>
       </el-form>
       <el-button class="loginButton" @click="finalCheckPassword" type="primary" style="width: 40%">修改密码</el-button>

@@ -23,10 +23,10 @@
             <el-input v-model="myname" />
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="password" />
+            <el-input v-model="password" show-password/>
           </el-form-item>
           <el-form-item label="确认密码">
-            <el-input v-model="checkpassword" />
+            <el-input v-model="checkpassword" show-password/>
           </el-form-item>
           <el-form-item label="性别">
             <el-input v-model="sex" />

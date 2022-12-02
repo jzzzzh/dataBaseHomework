@@ -19,7 +19,7 @@
             <el-input v-model="formLabelAlign.uuid" />
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="formLabelAlign.password" />
+            <el-input v-model="formLabelAlign.password" show-password/>
           </el-form-item>
           <el-form-item label="身份">
             <el-select v-model="formLabelAlign.model" placeholder="选择身份">
