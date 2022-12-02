@@ -14,8 +14,8 @@
         <el-button style="width: 100px; margin: 20px 20px" @click="search">搜索</el-button>
       </div>
       <div style="text-align: center; width: 1200px">
-        <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column prop="date" label="id" width="100" />
+        <el-table :data="reslist" stripe style="width: 100%">
+          <el-table-column prop="uuid" label="id" width="100" />
           <el-table-column prop="name" label="课程名" width="100" />
           <el-table-column prop="address" label="老师编号" />
           <el-table-column prop="address" label="专业" />
@@ -106,27 +106,50 @@ export default {
               "token": this.$store.state.token
             },
           };
-            if(value == 1)
+            if(this.value == 1)
             {
               //课程号
-              data.append()
-
+              data.append("uuid", this.searchValue);
+              url = "student/selectCourseBycourseid";
             }
-            else if(value == 2)
+            else if(this.value == 2)
             {
               //专业
+              data.append("major", this.searchValue);
+              url = "student/selectCourseBymajor";
             }
-            else if(value == 3)
+            else if(this.value == 3)
             {
               //课程名
+              data.append("uuid", this.searchValue);
+              url = "student/selectCourseBycourseid";
             }
             else
             {
               //教师号
+              data.append("uuid", this.searchValue);
+              url = "student/selectCourseBycourseid";
             }
             axios.post(url,data,config).then(
               res=>{
-                this.reslist = res.data.data;
+                console.log(res);
+                let tmp =[];
+                let Myreslist = res.data.data.course;
+                console.log(Myreslist);
+                console.log(Myreslist.length)
+                if(Myreslist.length == undefined)
+                {
+                  tmp.push(Myreslist);
+                }
+                else {
+                  let len = Myreslist.length;
+                  for (let i = 0; i < len; i++) {
+                    tmp.push(Myreslist[i]);
+                  }
+                }
+                
+                console.log(tmp);
+                this.reslist = tmp;
                 console.log(this.reslist);
               }
             ).catch(err=>{
