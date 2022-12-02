@@ -11,6 +11,11 @@ export default {
 }
 </script>
 
+<script setup>
+//时间格式转化
+const dayjs = require('dayjs')
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
