@@ -7,11 +7,17 @@ import login from "@/page/login";
 import home from "@/page/home";
 import addCourse from "@/page/addCourse";
 import teaAddCourse from "@/page/teaAddCourse";
+import courseDetail from "@/page/courseDetail";
 const routes = [
   {
     path: '/ChangePassword',
     name: 'ChangePassword',
     component: ChangePassword
+  },
+  {
+    path: '/courseDetail',
+    name: 'courseDetail',
+    component: courseDetail
   },
   {
     path: "/register",
