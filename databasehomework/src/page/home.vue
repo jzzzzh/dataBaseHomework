@@ -1,6 +1,7 @@
 <template>
-    <div>
-      <div v-show="isStudent" style="margin: 20px">
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+      <div style=" width: 1000px; ">
+      <div v-show="isStudent" style="margin: 20px;" >
         <el-card class="box-card" shadow="hover">
           <template #header>
             <div class="card-header">
@@ -87,7 +88,10 @@
       </div>
 
 
-
+        <div>
+          <el-button type="primary" text @click="this.$router.push('/addCourse')">学生添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/teaAddCourse')">教师添加课程</el-button>
+        </div>
 
 
 
@@ -152,7 +156,7 @@
         </el-card>
       </div>
 
-
+      </div>
 
       <el-drawer v-model="visible" :show-close="false">
         <template #header="{ close, titleId, titleClass }">
@@ -562,7 +566,7 @@
           that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
           that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
           let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
-          that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
+          that.NoticeDetail.Notice2.time = time;
           that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
         }
 
