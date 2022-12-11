@@ -1,5 +1,6 @@
 <template>
   <div>
+  <div class="main">
   <div>
     <el-form-item label="课程名">
       <el-input v-model="className" />
@@ -20,8 +21,9 @@
       <el-input v-model="credit" />
     </el-form-item>
   </div>
-    <el-button type="primary">提交</el-button>
   </div>
+  <el-button type="primary">提交</el-button>
+    </div>
 </template>
 
 <script>
@@ -40,5 +42,11 @@ export default {
 </script>
 
 <style scoped>
-
+.main{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

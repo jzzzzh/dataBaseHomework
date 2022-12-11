@@ -1,6 +1,13 @@
 <template>
-  <div>
-    ppp
+  <div class="main">
+      <div>
+        <p>
+          课程详情
+        </p>
+      </div>
+    <div>
+
+    </div>
   </div>
 </template>
 
@@ -21,5 +28,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
