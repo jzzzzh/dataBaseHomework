@@ -91,6 +91,7 @@
         <div>
           <el-button type="primary" text @click="this.$router.push('/addCourse')">学生添加课程</el-button>
           <el-button type="primary" text @click="this.$router.push('/teaAddCourse')">教师添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/myCourse')">我的课程</el-button>
         </div>
 
 
