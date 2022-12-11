@@ -6,7 +6,6 @@ import login from "@/page/login";
 import home from "@/page/home";
 import addCourse from "@/page/addCourse";
 import teaAddCourse from "@/page/teaAddCourse";
-import courseDetail from "@/page/courseDetail";
 import teaAddNotice from "@/page/teaAddNotice";
 import myCourse from "@/page/myCourse";
 const routes = [
@@ -14,11 +13,6 @@ const routes = [
     path: '/ChangePassword',
     name: 'ChangePassword',
     component: ChangePassword
-  },
-  {
-    path: '/courseDetail',
-    name: 'courseDetail',
-    component: courseDetail
   },
   {
     path: "/register",

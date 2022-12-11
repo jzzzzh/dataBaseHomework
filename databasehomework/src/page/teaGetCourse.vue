@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "evalTeacher"
+  name: "teaGetCourse"
 };
 </script>
 

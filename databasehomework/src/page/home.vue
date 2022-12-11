@@ -117,6 +117,15 @@
                   <p>{{NoticeDetail.Notice1.teachername}}</p>
                   <p>{{NoticeDetail.Notice1.time}}</p>
                 </div>
+                  <el-popconfirm title="是否要删除"
+                                 confirm-button-text="是"
+                                 cancel-button-text="否"
+                                 @confirm="deleteNotice(1)">
+                    <template #reference>
+                      <el-button v-show="!isStudent" type="warning">删除</el-button>
+                    </template>
+                  </el-popconfirm>
+
               </el-card>
               </el-col>
               <el-col :span="8">
@@ -131,6 +140,14 @@
                     <p>{{NoticeDetail.Notice2.teachername}}</p>
                     <p>{{NoticeDetail.Notice2.time}}</p>
                   </div>
+                  <el-popconfirm title="是否要删除"
+                                 confirm-button-text="是"
+                                 cancel-button-text="否"
+                                 @confirm="deleteNotice(2)">
+                    <template #reference>
+                      <el-button v-show="!isStudent" type="warning">删除</el-button>
+                    </template>
+                  </el-popconfirm>
                 </el-card>
               </el-col>
               <el-col :span="8">
@@ -145,6 +162,14 @@
                     <p>{{NoticeDetail.Notice3.teachername}}</p>
                     <p>{{NoticeDetail.Notice3.time}}</p>
                   </div>
+                  <el-popconfirm title="是否要删除"
+                                 confirm-button-text="是"
+                                 cancel-button-text="否"
+                                 @confirm="deleteNotice(3)">
+                    <template #reference>
+                      <el-button v-show="!isStudent" type="warning">删除</el-button>
+                    </template>
+                  </el-popconfirm>
                 </el-card>
               </el-col>
             </el-row>
@@ -221,10 +246,12 @@
   import logout from "@/components/logout";
   import { CircleCloseFilled } from '@element-plus/icons-vue'
   import dayjs from "dayjs";
+  import { ElMessage } from "element-plus";
   export default {
     components: {
       logout,
       CircleCloseFilled,
+      ElMessage,
     },
     data () {
       return {
@@ -259,18 +286,21 @@
         },
         NoticeDetail:{
           Notice1:{
+            uuid:null,
             title:"",
             detail:"",
             time:null,
             teachername:""
           },
           Notice2:{
+            uuid:null,
             title:"",
             detail:"",
             time:null,
             teachername:""
           },
           Notice3:{
+            uuid:null,
             title:"",
             detail:"",
             time:null,
@@ -458,7 +488,9 @@
           that.notices = res.data.data.notices.reverse();
           if(that.Notice.isShow1)
           {
+
             that.NoticeDetail.Notice1.title = that.notices[(curr-1)*pagesize].title;
+            that.NoticeDetail.Notice1.uuid = that.notices[(curr-1)*pagesize].uuid;
             that.NoticeDetail.Notice1.detail = that.notices[(curr-1)*pagesize].detail;
             let time = dayjs(that.notices[(curr-1)*pagesize].time).subtract(8, 'hour').format("YYYY年MM月DD日");
             that.NoticeDetail.Notice1.time = time;
@@ -467,6 +499,7 @@
           if(that.Notice.isShow2)
           {
             that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
+            that.NoticeDetail.Notice2.uuid = that.notices[(curr-1)*pagesize+1].uuid;
             that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
             let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
             that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
@@ -476,6 +509,7 @@
           if(that.Notice.isShow3)
           {
             that.NoticeDetail.Notice3.title = that.notices[(curr-1)*pagesize+2].title;
+            that.NoticeDetail.Notice3.uuid = that.notices[(curr-1)*pagesize+2].uuid;
             that.NoticeDetail.Notice3.detail = that.notices[(curr-1)*pagesize+2].detail;
             let time = dayjs(that.notices[(curr-1)*pagesize+2].time).subtract(8, 'hour').format("YYYY年MM月DD日");
             that.NoticeDetail.Notice3.time = time;
@@ -490,6 +524,38 @@
 
     },
     methods: {
+      deleteNotice(e){
+        console.log(e);
+        let data = new FormData();
+        let url = "teacher/deleteNoticeByNoticeID";
+        let config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "token": this.$store.state.token
+          },
+        };
+        if(e == 1)
+        {
+          data.append("uuid", this.NoticeDetail.Notice1.uuid);
+        }
+        else if(e == 2)
+        {
+          data.append("uuid", this.NoticeDetail.Notice2.uuid);
+        }
+        else if(e == 3)
+        {
+          data.append("uuid", this.NoticeDetail.Notice3.uuid);
+        }
+        axios.post(url,data,config).then(
+          res=>{
+            ElMessage.success("删除成功");
+          }
+        ).catch(
+          err=>{
+            ElMessage.error("删除失败");
+          }
+        )
+      },
       changePassword() {
         this.$router.push('/ChangePassword');
       },
@@ -558,6 +624,7 @@
         {
           that.NoticeDetail.Notice1.title = that.notices[(curr-1)*pagesize].title;
           that.NoticeDetail.Notice1.detail = that.notices[(curr-1)*pagesize].detail;
+          that.NoticeDetail.Notice1.uuid = that.notices[(curr-1)*pagesize].uuid;
           let time = dayjs(that.notices[(curr-1)*pagesize].time).subtract(8, 'hour').format("YYYY年MM月DD日");
           that.NoticeDetail.Notice1.time = time;
           that.NoticeDetail.Notice1.teachername = that.notices[(curr-1)*pagesize].teachername;
@@ -566,6 +633,7 @@
         {
           that.NoticeDetail.Notice2.title = that.notices[(curr-1)*pagesize+1].title;
           that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
+          that.NoticeDetail.Notice2.uuid = that.notices[(curr-1)*pagesize+1].uuid;
           let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
           that.NoticeDetail.Notice2.time = time;
           that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
@@ -575,6 +643,7 @@
         {
           that.NoticeDetail.Notice3.title = that.notices[(curr-1)*pagesize+2].title;
           that.NoticeDetail.Notice3.detail = that.notices[(curr-1)*pagesize+2].detail;
+          that.NoticeDetail.Notice3.uuid = that.notices[(curr-1)*pagesize+2].uuid;
           let time = dayjs(that.notices[(curr-1)*pagesize+2].time).subtract(8, 'hour').format("YYYY年MM月DD日");
           that.NoticeDetail.Notice3.time = time;
           that.NoticeDetail.Notice3.teachername = that.notices[(curr-1)*pagesize+2].teachername;
