@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side">
     <el-row class="tac">
       <el-col :span="12">
         <!-- <h5 class="mb-2">Default colors</h5> -->
@@ -45,11 +45,12 @@
             <span>修改密码</span>
           </el-menu-item>
   
-
           <el-menu-item index="4">
             <el-icon><setting /></el-icon>
             <span>课程评价</span>
           </el-menu-item>
+          
+
         </el-menu>
       </el-col>
       <el-col :span="12"> </el-col>
@@ -77,6 +78,14 @@ export default {
   padding-left: 20px;
   padding-right: 37px;
   align-items: center;
+}
+*{
+        margin: 0;
+        padding: 0;
+    }
+.side{
+  width: 250px;
+  height: 600px;
 }
 .el-dropdown-menu__item {
   text-align: center;
