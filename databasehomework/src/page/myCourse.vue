@@ -15,7 +15,7 @@
             <el-table-column prop="score" label="总成绩" />
             <el-table-column label="选择" width="200">
               <template #default="scope">
-                <el-button @click="gotopingfen(scope.row)" v-show="scope.row.score == 1">评分</el-button>
+                <el-button @click="gotopingfen(scope.row)" v-show="scope.row.score != 0">评分</el-button>
                 <el-popconfirm title="是否要删除"
                                confirm-button-text="是"
                                cancel-button-text="否"

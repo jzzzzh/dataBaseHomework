@@ -8,11 +8,23 @@ import addCourse from "@/page/addCourse";
 import teaAddCourse from "@/page/teaAddCourse";
 import teaAddNotice from "@/page/teaAddNotice";
 import myCourse from "@/page/myCourse";
+import teaGetCourse from "@/page/teaGetCourse";
+import teaAddScore from "@/page/teaAddScore";
 const routes = [
   {
     path: '/ChangePassword',
     name: 'ChangePassword',
     component: ChangePassword
+  },
+  {
+    path: '/teaAddScore',
+    name: 'teaAddScore',
+    component: teaAddScore
+  },
+  {
+    path: '/teaGetCourse',
+    name: 'teaGetCourse',
+    component: teaGetCourse,
   },
   {
     path: "/register",
