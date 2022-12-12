@@ -119,6 +119,7 @@
                   <p>{{NoticeDetail.Notice1.teachername}}</p>
                   <p>{{NoticeDetail.Notice1.time}}</p>
                 </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(1)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -142,6 +143,7 @@
                     <p>{{NoticeDetail.Notice2.teachername}}</p>
                     <p>{{NoticeDetail.Notice2.time}}</p>
                   </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(2)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -164,6 +166,7 @@
                     <p>{{NoticeDetail.Notice3.teachername}}</p>
                     <p>{{NoticeDetail.Notice3.time}}</p>
                   </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(3)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -526,6 +529,35 @@
 
     },
     methods: {
+      enterDetail(e){
+        if(e == 1)
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice1)
+            }
+          })
+        }
+        else if(e == 2)
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice2)
+            }
+          })
+        }
+        else
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice3)
+            }
+          })
+        }
+      },
       deleteNotice(e){
         console.log(e);
         let data = new FormData();
