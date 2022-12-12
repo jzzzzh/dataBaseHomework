@@ -28,7 +28,22 @@
           </el-table>
         </div>
         <div>
-          <div id="test" style="width: 300px; height: 300px"></div>
+          <div id="test" style="width: 300px; height: 300px"  v-show="value == 1"></div>
+          <div id="test2" style="width: 300px; height: 300px"  v-show="value == 2"></div>
+          <div id="test3" style="width: 300px; height: 300px"  v-show="value == 3"></div>
+          <div id="test4" style="width: 300px; height: 300px"  v-show="value == 4"></div>
+        </div>
+        <div>
+          <div id="quan" style="width: 300px; height: 300px"  v-show="value == 1"></div>
+          <div id="quan2" style="width: 300px; height: 300px"  v-show="value == 2"></div>
+          <div id="quan3" style="width: 300px; height: 300px"  v-show="value == 3"></div>
+          <div id="quan4" style="width: 300px; height: 300px"  v-show="value == 4"></div>
+        </div>
+        <div>
+          <div id="zhu" style="width: 100%; height: 300px" v-show="value == 1"></div>
+          <div id="zhu2" style="width: 100%; height: 300px" v-show="value == 2"></div>
+          <div id="zhu3" style="width: 100%; height: 300px" v-show="value == 3"></div>
+          <div id="zhu4" style="width: 100%; height: 300px" v-show="value == 4"></div>
         </div>
       </div>
     </div>
@@ -86,6 +101,39 @@ export default {
       dailyscore: 0,
       checkscore: 0,
       examscore: 0,
+      avergSumScore: 0,
+      avergCheckScore: 0,
+      avergExamScore: 0,
+      avergDailyScore: 0,
+      upperExamScoreNum:100,
+      lowerExamScoreNum:50,
+      upper60ExamScoreNum:120,
+      lower60ExamScoreNum:30,
+      value: 1,
+      SumExamList:[],
+      nameList:[],
+      ExamList:[],
+      DailyExamList:[],
+      CheckExamList:[],
+      ExamListAver:0,
+      DailyExamListAver:0,
+      CheckExamListAver:0,
+      SumExamListAver:0,
+      upperAverage:[
+        {
+          value: 335,
+          name: '直接访问'
+        },
+        {
+          value: 234,
+          name: '联盟广告'
+        },
+        {
+          value: 1548,
+          name: '搜索引擎'
+        }
+      ],
+
     }
   },
   computed:{
@@ -94,57 +142,6 @@ export default {
     }
   },
   mounted() {
-
-    // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(document.getElementById('test'));
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: 'ECharts 入门示例'
-      },
-      tooltip: {},
-      // xAxis: {
-      //   data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
-      // },
-      xAxis: {
-        data: ['数据']
-      },
-      yAxis: {},
-      series: [
-        {
-          type: 'pie',
-          data: [
-            {
-              value: 335,
-              name: '直接访问'
-            },
-            {
-              value: 234,
-              name: '联盟广告'
-            },
-            {
-              value: 1548,
-              name: '搜索引擎'
-            }
-          ],
-          radius: '50%'
-        }
-      ]
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     this.classInfo =  JSON.parse(this.$route.query.classInfo);
     this.from =  JSON.parse(this.$route.query.from);
     console.log(this.classInfo);
@@ -183,11 +180,115 @@ export default {
           console.log(this.reslist);
         }
       }
+    ).then(
+      res=>{
+        this.calAverage();
+        //  获取信息，如果从1来可以修改，如果从0来不可以修改
+
+        
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = echarts.init(document.getElementById('test'));
+        // 绘制图表
+        myChart.setOption({
+          title: {
+            text: '总成绩分布'
+          },
+          tooltip: {},
+          // xAxis: {
+          //   data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+          // },
+          xAxis: {
+            data: []
+          },
+          yAxis: {},
+          series: [
+            {
+              type: 'pie',
+              data: [
+                {
+                  value: this.upperExamScoreNum,
+                  name: '高于平均分'
+                },
+                {
+                  value: this.lowerExamScoreNum,
+                  name: '低于平均分'
+                }
+              ],
+              radius: '50%'
+            }
+          ]
+        });
+        let zhuChart = echarts.init(document.getElementById("zhu"));
+        zhuChart.setOption(
+          {
+            title: {
+              text: '总成绩柱状图'
+            },
+            xAxis: {
+              data: this.nameList
+            },
+            yAxis: {},
+            series: [
+              {
+                type: 'bar',
+                data: this.SumExamList,
+                radius: '50%'
+              }
+            ]
+          }
+        )
+      }
     )
-  //  获取信息，如果从1来可以修改，如果从0来不可以修改
+
 
   },
   methods:{
+    calAverage()
+    {
+      //算平均分，最高分，最低分
+        console.log("cal");
+        console.log(this.reslist);
+        let t = this.reslist;
+        let len = t.length;
+        let sumsum = 0;
+        let sumDaily = 0;
+        if(len>0) {
+          for (let i = 0; i < len; i++)
+          {
+            console.log(this.reslist[i].studentuuid);
+            this.nameList.push(this.reslist[i].studentuuid);
+            this.ExamList.push(this.reslist[i].examscore);
+            this.SumExamList.push(this.reslist[i].score);
+            this.DailyExamList.push(this.reslist[i].dailyscore);
+            this.CheckExamList.push(this.reslist[i].checkscore);
+            sumsum += this.reslist[i].score;
+            sumDaily += this.reslist[i].dailyscore;
+          }
+          this.SumExamListAver = Math.floor(sumsum/len);
+          this.DailyExamListAver = Math.floor(sumDaily/len);
+          console.log(this.SumExamListAver);
+          let uppernum = 0;
+          let lowernum = 0;
+          for (let i = 0; i < len; i++)
+          {
+            if(this.reslist[i].score >= this.SumExamListAver)
+            {
+              uppernum += 1;
+            }
+            else
+            {
+              lowernum += 1;
+            }
+          }
+          this.upperExamScoreNum = uppernum;
+          this.lowerExamScoreNum = lowernum;
+          //select
+          //30.60.80.90
+          // v-if="num == 1"
+          //平均分
+          //成绩图
+        }
+    },
     gototeaAddScore(e)
     {
       //打开添加成绩窗口
