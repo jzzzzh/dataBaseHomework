@@ -89,8 +89,9 @@
 
 
         <div>
-          <el-button type="primary" text @click="this.$router.push('/addCourse')">学生添加课程</el-button>
-          <el-button type="primary" text @click="this.$router.push('/teaAddCourse')">教师添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/addCourse')" v-show="isStudent">学生添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/teaAddCourse')" v-show="!isStudent">添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/teaAddNotice')" v-show="!isStudent">添加公告</el-button>
           <el-button type="primary" text @click="this.$router.push('/myCourse')" v-show="isStudent">我的课程</el-button>
           <el-button type="primary" text @click="this.$router.push('/teaGetCourse')" v-show="!isStudent">我的课程</el-button>
         </div>
@@ -503,7 +504,7 @@
             that.NoticeDetail.Notice2.uuid = that.notices[(curr-1)*pagesize+1].uuid;
             that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
             let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
-            that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
+            that.NoticeDetail.Notice2.time = time;
             that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
           }
 
