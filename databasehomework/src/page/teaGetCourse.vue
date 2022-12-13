@@ -70,7 +70,6 @@ export default {
   {
     return{
       reslist:null,
-
     }
   },
   mounted() {

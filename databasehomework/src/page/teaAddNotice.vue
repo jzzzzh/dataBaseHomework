@@ -1,57 +1,66 @@
 <template>
+  <div class="main">
   <div>
     <div>
+      <div class="title">请输入公告</div>
       <el-form-item label="标题">
         <el-input v-model="title" />
       </el-form-item>
       <el-form-item label="内容">
-        <el-input v-model="detail" />
+        <el-input :autosize="{ minRows: 2, maxRows: 4 }" type="textarea" v-model="detail" />
       </el-form-item>
-
-      <!-- <el-form-item label="是否必修">
-      <el-select v-model="Compulsory" placeholder="是否必修">
-        <el-option label="必修" value="0" />
-        <el-option label="选修" value="1" />
-      </el-select>
-    </el-form-item> -->
-      <!-- <div class="example-basic">
-    <el-time-picker v-model="value1" placeholder="发布时间" />
-  </div> -->
+      <el-form-item label="署名">
+        <el-input v-model="name" />
+      </el-form-item>
     </div>
     <el-button type="primary" @click="addnotice">发布</el-button>
+  </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import { ElMessage } from "element-plus";
 export default {
   name: "teaAddNotice",
+  components:{
+    ElMessage
+  },
   data() {
     return {
       title: "",
-      detail: ""
+      detail: "",
+      name: "",
     };
   },
   methods: {
     addnotice() {
       let data = new FormData();
       let url = "";
+      url = "teacher/addNotice";
       let config = {
         headers: {
           "Content-Type": "multipart/form-data ",
-          token: this.$store.state.token
+          token: this.$cookies.get("token")
         }
       };
 
-      url = "teacher/teaAddNotice";
+      url = "teacher/addNotice";
             data.append("title", this.title);
             data.append("detail", this.detail);
+            data.append("teacheruuid", this.$cookies.get("uuid"));
+            data.append("teachername", this.name);
             axios.post(url,data,config).then(res=>{
             console.log(res);
-            alert("发布成功");
+            // alert("发布成功");
+              ElMessage.success("发布成功");
+              this.title = "";
+              this.detail = "";
+              this.name = "";
           }).catch(err=>{
             console.log(err);
-            alert("发布失败");
+            // alert("发布失败");
+              ElMessage.success("发布失败");
           })
     }
   }
@@ -61,5 +70,20 @@ export default {
 <style scoped>
 .example-basic .el-date-editor {
   margin: 8px;
+}
+
+.main{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+}
+
+.title{
+  margin-bottom: 20px;
+  font-size: large;
+  font-weight: bold;
 }
 </style>

@@ -89,8 +89,9 @@
 
 
         <div>
-          <el-button type="primary" text @click="this.$router.push('/addCourse')">学生添加课程</el-button>
-          <el-button type="primary" text @click="this.$router.push('/teaAddCourse')">教师添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/addCourse')" v-show="isStudent">学生添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/teaAddCourse')" v-show="!isStudent">添加课程</el-button>
+          <el-button type="primary" text @click="this.$router.push('/teaAddNotice')" v-show="!isStudent">添加公告</el-button>
           <el-button type="primary" text @click="this.$router.push('/myCourse')" v-show="isStudent">我的课程</el-button>
           <el-button type="primary" text @click="this.$router.push('/teaGetCourse')" v-show="!isStudent">我的课程</el-button>
         </div>
@@ -118,6 +119,7 @@
                   <p>{{NoticeDetail.Notice1.teachername}}</p>
                   <p>{{NoticeDetail.Notice1.time}}</p>
                 </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(1)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -141,6 +143,7 @@
                     <p>{{NoticeDetail.Notice2.teachername}}</p>
                     <p>{{NoticeDetail.Notice2.time}}</p>
                   </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(2)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -163,6 +166,7 @@
                     <p>{{NoticeDetail.Notice3.teachername}}</p>
                     <p>{{NoticeDetail.Notice3.time}}</p>
                   </div>
+                  <el-button v-show="!isStudent" type="primary" @click="enterDetail(3)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
                                  cancel-button-text="否"
@@ -503,7 +507,7 @@
             that.NoticeDetail.Notice2.uuid = that.notices[(curr-1)*pagesize+1].uuid;
             that.NoticeDetail.Notice2.detail = that.notices[(curr-1)*pagesize+1].detail;
             let time = dayjs(that.notices[(curr-1)*pagesize+1].time).subtract(8, 'hour').format("YYYY年MM月DD日");
-            that.NoticeDetail.Notice2.time = that.notices[(curr-1)*pagesize+1].time;
+            that.NoticeDetail.Notice2.time = time;
             that.NoticeDetail.Notice2.teachername = that.notices[(curr-1)*pagesize+1].teachername;
           }
 
@@ -525,6 +529,35 @@
 
     },
     methods: {
+      enterDetail(e){
+        if(e == 1)
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice1)
+            }
+          })
+        }
+        else if(e == 2)
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice2)
+            }
+          })
+        }
+        else
+        {
+          this.$router.push({
+            path:"/NoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice3)
+            }
+          })
+        }
+      },
       deleteNotice(e){
         console.log(e);
         let data = new FormData();

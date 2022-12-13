@@ -276,6 +276,7 @@ export default {
         this.calAverage();
         //  获取信息，如果从1来可以修改，如果从0来不可以修改
 
+
         // 基于准备好的dom，初始化echarts实例
         let myChart = echarts.init(document.getElementById("test"));
         // 绘制图表
