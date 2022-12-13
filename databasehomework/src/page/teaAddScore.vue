@@ -37,7 +37,7 @@
                 <el-button
                   @click="gototeaAddScore(scope.row)"
                   v-show="this.from == 1"
-                  >修改成绩</el-button
+                >修改成绩</el-button
                 >
               </template>
             </el-table-column>
@@ -123,7 +123,7 @@
         {{ studentinfo.student.uuid }}
       </el-form-item>
       <el-form-item label="学生姓名"
-        >{{ studentinfo.student.name }}
+      >{{ studentinfo.student.name }}
       </el-form-item>
       <el-form-item label="平时成绩">
         <el-input v-model="dailyscore" />
@@ -140,7 +140,7 @@
     </div>
     <el-button type="primary" @click="addscore">发布</el-button>
     <el-button type="danger" @click="this.dialogVisible = faLSE"
-      >关闭</el-button
+    >关闭</el-button
     >
   </el-dialog>
 </template>
@@ -499,16 +499,16 @@ export default {
                 show: false
               },
               data: [
-                { value: lower60ScoreNum, name: "60分以下" },
-                { value: upper60ScoreNum, name: "60-70" },
-                { value: upper70ScoreNum, name: "70-80" },
-                { value: upper80ScoreNum, name: "80-90" },
-                { value: upper90ScoreNum, name: "90分以上" }
+                { value: this.lower60ScoreNum, name: "60分以下" },
+                { value: this.upper60ScoreNum, name: "60-70" },
+                { value: this.upper70ScoreNum, name: "70-80" },
+                { value: this.upper80ScoreNum, name: "80-90" },
+                { value: this.upper90ScoreNum, name: "90分以上" }
               ]
             }
           ]
         });
-        
+
         let quanChart2 = echarts.init(document.getElementById("quan2"));
         quanChart2.setOption({
           tooltip: {
@@ -539,11 +539,11 @@ export default {
                 show: false
               },
               data: [
-                { value: lower60ExamScoreNum, name: "60分以下" },
-                { value: upper60ExamScoreNum, name: "60-70" },
-                { value: upper70ExamScoreNum, name: "70-80" },
-                { value: upper80ExamScoreNum, name: "80-90" },
-                { value: upper90ExamScoreNum, name: "90分以上" }
+                { value: this.lower60ExamScoreNum, name: "60分以下" },
+                { value: this.upper60ExamScoreNum, name: "60-70" },
+                { value: this.upper70ExamScoreNum, name: "70-80" },
+                { value: this.upper80ExamScoreNum, name: "80-90" },
+                { value: this.upper90ExamScoreNum, name: "90分以上" }
               ]
             }
           ]
@@ -579,11 +579,11 @@ export default {
                 show: false
               },
               data: [
-                { value: lower60CheckScoreNum, name: "60分以下" },
-                { value: upper60CheckScoreNum, name: "60-70" },
-                { value: upper70CheckScoreNum, name: "70-80" },
-                { value: upper80CheckScoreNum, name: "80-90" },
-                { value: upper90CheckScoreNum, name: "90分以上" }
+                { value: this.lower60CheckScoreNum, name: "60分以下" },
+                { value: this.upper60CheckScoreNum, name: "60-70" },
+                { value: this.upper70CheckScoreNum, name: "70-80" },
+                { value: this.upper80CheckScoreNum, name: "80-90" },
+                { value: this.upper90CheckScoreNum, name: "90分以上" }
               ]
             }
           ]
@@ -619,11 +619,11 @@ export default {
                 show: false
               },
               data: [
-                { value: lower60DailyScoreNum, name: "60分以下" },
-                { value: upper60DailyScoreNum, name: "60-70" },
-                { value: upper70DailyScoreNum, name: "70-80" },
-                { value: upper80DailyScoreNum, name: "80-90" },
-                { value: upper90DailyScoreNum, name: "90分以上" }
+                { value: this.lower60DailyScoreNum, name: "60分以下" },
+                { value: this.upper60DailyScoreNum, name: "60-70" },
+                { value: this.upper70DailyScoreNum, name: "70-80" },
+                { value: this.upper80DailyScoreNum, name: "80-90" },
+                { value: this.upper90DailyScoreNum, name: "90分以上" }
               ]
             }
           ]
