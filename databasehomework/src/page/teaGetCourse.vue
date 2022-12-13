@@ -9,9 +9,10 @@
             <el-table-column prop="name" label="课程名" width="100" />
             <el-table-column prop="bixiu" label="是否必修" />
             <el-table-column prop="credit" label="学分" />
-            <el-table-column label="选择" width="200">
+            <el-table-column label="选择" width="400">
               <template #default="scope">
                 <el-button @click="gototeaAddScore(scope.row, 1)">进入</el-button>
+                <el-button type="primary" @click="gotoPj(scope.row)">我的课程评价</el-button>
                 <el-popconfirm title="是否要删除"
                                confirm-button-text="是"
                                cancel-button-text="否"
@@ -63,19 +64,17 @@ import { ElMessage } from "element-plus";
 
 export default {
   name: "teaGetCourse",
-  components:{
+  components: {
     ElMessage
   },
-  data()
-  {
-    return{
-      reslist:null,
+  data() {
+    return {
+      reslist: null,
     }
   },
   mounted() {
     let that = this;
-    if(this.$cookies.get("token")!= null && this.$cookies.get("uuid")!= null && this.$cookies.get("model")!= null)
-    {
+    if (this.$cookies.get("token") != null && this.$cookies.get("uuid") != null && this.$cookies.get("model") != null) {
       let token = this.$cookies.get("token");
       let name = this.$cookies.get("uuid");
       let model = this.$cookies.get("model");
@@ -96,10 +95,10 @@ export default {
     };
     let url = "teacher/selectCourseByMainTeacherID";
     axios.post(url, data, config).then(
-      res=>{
+      res => {
         console.log(res.data.data.CourseByMainTeacherID);
         this.reslist = res.data.data.CourseByMainTeacherID;
-        for(let i = 0; i < this.reslist.length; i++) {
+        for (let i = 0; i < this.reslist.length; i++) {
           if (this.reslist[i].Compulsory == 1) {
             this.reslist[i].bixiu = "是";
           } else {
@@ -108,46 +107,53 @@ export default {
         }
       }
     ).catch(
-      err=>{
+      err => {
         console.log(err);
         ElMessage.error("获取失败");
       }
     )
   },
-  methods:{
-    gototeaAddScore(a,b)
-    {
+  methods: {
+    gototeaAddScore(a, b) {
       this.$router.push({
-        path:"/teaAddScore",
+        path: "/teaAddScore",
         query: {
           classInfo: JSON.stringify(a),
           from: JSON.stringify(b)
         }
       })
     },
-    deleteCourse(e)
-    {
-      console.log(e);
-      let url = "teacher/deleteCourseByCourseID";
-      let data = new FormData();
-      data.append("uuid",e.uuid );
-      let config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "token": this.$store.state.token
-        },
-      };
-      axios.post(url,data,config).then(
-        res=>{
-          ElMessage.success("删除成功");
+    gotoPj(e) {
+      this.$router.push({
+        path: '/teaGetteaClassScore',
+        query: {
+          classInfo: JSON.stringify(e),
         }
-      ).catch(
-        err=>{
-          ElMessage.error("删除失败");
-        }
-      )
-    }
+      })
+    },
+
+  deleteCourse(e) {
+    console.log(e);
+    let url = "teacher/deleteCourseByCourseID";
+    let data = new FormData();
+    data.append("uuid", e.uuid);
+    let config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "token": this.$store.state.token
+      },
+    };
+    axios.post(url, data, config).then(
+      res => {
+        ElMessage.success("删除成功");
+      }
+    ).catch(
+      err => {
+        ElMessage.error("删除失败");
+      }
+    )
   }
+  },
 };
 </script>
 
