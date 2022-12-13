@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     this.classInfo =  JSON.parse(this.$route.query.classInfo);
-    console.log(this.classInfo);
+    //console.log(this.classInfo);
     let data = new FormData();
     data.append("courseuuid", this.classInfo.uuid* 1);
     data.append("teacheruuid", this.classInfo.teacher_id * 1);
@@ -38,7 +38,7 @@ export default {
     };
     axios.post(url,data,config).then(
       res=>{
-        console.log(res.data.data.tsList);
+        //console.log(res.data.data.tsList);
         this.reslist = res.data.data.tsList;
       }
     )

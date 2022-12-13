@@ -57,9 +57,13 @@
 
 <script>
 import axios from "axios";
+import { ElMessage } from "element-plus";
 
 export default {
   name: "ChangePassword",
+  components:[
+    ElMessage
+  ],
   data(){
     return{
       password : "",
@@ -97,7 +101,7 @@ export default {
       if(this.password == this.$cookies.get("password"))
       {
         this.isTrue = true;
-        console.log("yes");
+        //console.log("yes");
       }
       else {
         this.isTrue = false;
@@ -109,7 +113,7 @@ export default {
       {
         if(this.ChangePassword == this.password)
         {
-          alert("密码不能相同");
+          ElMessage.error("密码不能相同");
         }
         else
         {
@@ -132,7 +136,7 @@ export default {
             url = 'teacher/changePassword';
           }
           axios.post(url,data,config).then(res=>{
-            alert("修改成功");
+            ElMessage.success("修改成功");
             this.$store.commit("logout");
             this.$cookies.remove("token");
             this.$cookies.remove("uuid");
@@ -140,13 +144,13 @@ export default {
             this.$cookies.remove("password");
             this.$router.push("/");
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
           })
         }
       }
       else
       {
-        alert("请重新输入密码");
+        ElMessage.error("请重新输入密码");
       }
     }
   }

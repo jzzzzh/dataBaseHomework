@@ -78,11 +78,11 @@ export default {
       let token = this.$cookies.get("token");
       let name = this.$cookies.get("uuid");
       let model = this.$cookies.get("model");
-      console.log(token);
+      //console.log(token);
       this.$store.commit("setmyToken", token);
       this.$store.commit("setmyName", name);
       this.$store.commit("setModel", model);
-      console.log(that.$store.state.model)
+      //console.log(that.$store.state.model)
       this.$store.commit("setIsLogin");
     }
     let data = new FormData();
@@ -96,7 +96,7 @@ export default {
     let url = "teacher/selectCourseByMainTeacherID";
     axios.post(url, data, config).then(
       res => {
-        console.log(res.data.data.CourseByMainTeacherID);
+        //console.log(res.data.data.CourseByMainTeacherID);
         this.reslist = res.data.data.CourseByMainTeacherID;
         for (let i = 0; i < this.reslist.length; i++) {
           if (this.reslist[i].Compulsory == 1) {
@@ -108,7 +108,7 @@ export default {
       }
     ).catch(
       err => {
-        console.log(err);
+        //console.log(err);
         ElMessage.error("获取失败");
       }
     )
@@ -133,7 +133,7 @@ export default {
     },
 
   deleteCourse(e) {
-    console.log(e);
+    //console.log(e);
     let url = "teacher/deleteCourseByCourseID";
     let data = new FormData();
     data.append("uuid", e.uuid);

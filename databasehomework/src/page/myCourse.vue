@@ -89,11 +89,11 @@ export default {
       let token = this.$cookies.get("token");
       let name = this.$cookies.get("uuid");
       let model = this.$cookies.get("model");
-      console.log(token);
+      //console.log(token);
       this.$store.commit("setmyToken", token);
       this.$store.commit("setmyName", name);
       this.$store.commit("setModel", model);
-      console.log(that.$store.state.model)
+      //console.log(that.$store.state.model)
       this.$store.commit("setIsLogin");
     }
     let data = new FormData();
@@ -107,7 +107,7 @@ export default {
     };
     axios.post(url,data,config).then(
       res=>{
-        console.log(res);
+        //console.log(res);
         this.reslist = res.data.data.Score;
         for(let i = 0; i < res.data.data.Score.length; i++)
         {
@@ -147,9 +147,9 @@ export default {
     {
       this.coursename = e.courseName;
       this.courseuuid = e.courseuuid;
-      console.log(this.value)
+      //console.log(this.value)
       this.value = 0;
-      console.log(e);
+      //console.log(e);
       this.centerDialogVisible = true;
       let data = new FormData();
       let url = "student/selectCourseBycourseid";
@@ -162,7 +162,7 @@ export default {
       };
       axios.post(url,data,config).then(
         res=>{
-            console.log(res.data.data.course.teacher_id);
+            //console.log(res.data.data.course.teacher_id);
             this.teacheruuid = res.data.data.course.teacher_id;
             let data2 = new FormData();
             data2.append("id", this.teacheruuid*1);
@@ -175,9 +175,9 @@ export default {
                 };
             axios.post(url2, data2, config).then(
               res=>{
-                console.log(res.data.data);
+                //console.log(res.data.data);
                 this.teachername = res.data.data.teacher.name;
-                console.log(this.teachername);
+                //console.log(this.teachername);
               }
             )
         }
@@ -185,7 +185,7 @@ export default {
     },
     deleteCourse(e)
     {
-      console.log(e);
+      //console.log(e);
       let data = new FormData();
       data.append("studentuuid", this.$cookies.get("uuid"));
       data.append("courseuuid", e.courseuuid);

@@ -43,7 +43,7 @@
             </el-table-column>
           </el-table>
         </div>
-        <div>
+        <div class="zx">
           <div
             id="test"
             style="width: 300px; height: 300px"
@@ -52,20 +52,20 @@
           <div
             id="test2"
             style="width: 300px; height: 300px"
-            v-show="value == 2"
+            v-show="value == 1"
           ></div>
           <div
             id="test3"
             style="width: 300px; height: 300px"
-            v-show="value == 3"
+            v-show="value == 1"
           ></div>
           <div
             id="test4"
             style="width: 300px; height: 300px"
-            v-show="value == 4"
+            v-show="value == 1"
           ></div>
         </div>
-        <div>
+        <div  class="zx">
           <div
             id="quan"
             style="width: 300px; height: 300px"
@@ -74,17 +74,17 @@
           <div
             id="quan2"
             style="width: 300px; height: 300px"
-            v-show="value == 2"
+            v-show="value == 1"
           ></div>
           <div
             id="quan3"
             style="width: 300px; height: 300px"
-            v-show="value == 3"
+            v-show="value == 1"
           ></div>
           <div
             id="quan4"
             style="width: 300px; height: 300px"
-            v-show="value == 4"
+            v-show="value == 1"
           ></div>
         </div>
         <div>
@@ -240,8 +240,8 @@ export default {
   mounted() {
     this.classInfo = JSON.parse(this.$route.query.classInfo);
     this.from = JSON.parse(this.$route.query.from);
-    console.log(this.classInfo);
-    console.log(this.from);
+    //console.log(this.classInfo);
+    //console.log(this.from);
     this.cousename = this.classInfo.name;
     this.courseNum = this.classInfo.uuid;
     let data = new FormData();
@@ -256,8 +256,8 @@ export default {
     axios
       .post(url, data, config)
       .then((res) => {
-        console.log("res");
-        console.log(res.data.data);
+        //console.log("res");
+        //console.log(res.data.data);
         this.reslist = res.data.data.score;
         if (this.reslist.length > 0) {
           let len = this.reslist.length;
@@ -269,7 +269,7 @@ export default {
               this.reslist[i].studentinfo = res.data.data;
             });
           }
-          console.log(this.reslist);
+          //console.log(this.reslist);
         }
       })
       .then((res) => {
@@ -397,7 +397,7 @@ export default {
           ]
         });
 
-        let zhuChart = echarts.init(document.getElementById("zhu"));
+        /*let zhuChart = echarts.init(document.getElementById("zhu"));
         zhuChart.setOption({
           title: {
             text: "总成绩柱状图"
@@ -467,7 +467,7 @@ export default {
               radius: "50%"
             }
           ]
-        });
+        });*/
 
         let quanChart = echarts.init(document.getElementById("quan"));
         quanChart.setOption({
@@ -480,9 +480,9 @@ export default {
           },
           series: [
             {
-              name: "成绩分布",
+              name: "总成绩分布",
               type: "pie",
-              radius: ["40%", "70%"],
+              radius: ["30%", "50%"],
               avoidLabelOverlap: false,
               label: {
                 show: false,
@@ -491,7 +491,7 @@ export default {
               emphasis: {
                 label: {
                   show: true,
-                  fontSize: 40,
+                  fontSize: 30,
                   fontWeight: "bold"
                 }
               },
@@ -504,7 +504,7 @@ export default {
                 { value: this.upper70ScoreNum, name: "70-80" },
                 { value: this.upper80ScoreNum, name: "80-90" },
                 { value: this.upper90ScoreNum, name: "90分以上" }
-              ]
+              ],
             }
           ]
         });
@@ -520,9 +520,9 @@ export default {
           },
           series: [
             {
-              name: "考试成绩分布",
+              name: "平时成绩分布",
               type: "pie",
-              radius: ["40%", "70%"],
+              radius: ["30%", "50%"],
               avoidLabelOverlap: false,
               label: {
                 show: false,
@@ -539,11 +539,11 @@ export default {
                 show: false
               },
               data: [
-                { value: this.lower60ExamScoreNum, name: "60分以下" },
-                { value: this.upper60ExamScoreNum, name: "60-70" },
-                { value: this.upper70ExamScoreNum, name: "70-80" },
-                { value: this.upper80ExamScoreNum, name: "80-90" },
-                { value: this.upper90ExamScoreNum, name: "90分以上" }
+                { value: this.lower60DailyScoreNum, name: "60分以下" },
+                { value: this.upper60DailyScoreNum, name: "60-70" },
+                { value: this.upper70DailyScoreNum, name: "70-80" },
+                { value: this.upper80DailyScoreNum, name: "80-90" },
+                { value: this.upper90DailyScoreNum, name: "90分以上" }
               ]
             }
           ]
@@ -562,7 +562,7 @@ export default {
             {
               name: "出勤成绩分布",
               type: "pie",
-              radius: ["40%", "70%"],
+              radius: ["30%", "50%"],
               avoidLabelOverlap: false,
               label: {
                 show: false,
@@ -600,9 +600,9 @@ export default {
           },
           series: [
             {
-              name: "日常成绩分布",
+              name: "考试成绩分布",
               type: "pie",
-              radius: ["40%", "70%"],
+              radius: ["30%", "50%"],
               avoidLabelOverlap: false,
               label: {
                 show: false,
@@ -619,11 +619,11 @@ export default {
                 show: false
               },
               data: [
-                { value: this.lower60DailyScoreNum, name: "60分以下" },
-                { value: this.upper60DailyScoreNum, name: "60-70" },
-                { value: this.upper70DailyScoreNum, name: "70-80" },
-                { value: this.upper80DailyScoreNum, name: "80-90" },
-                { value: this.upper90DailyScoreNum, name: "90分以上" }
+                { value: this.lower60ExamScoreNum, name: "60分以下" },
+                { value: this.upper60ExamScoreNum, name: "60-70" },
+                { value: this.upper70ExamScoreNum, name: "70-80" },
+                { value: this.upper80ExamScoreNum, name: "80-90" },
+                { value: this.upper90ExamScoreNum, name: "90分以上" }
               ]
             }
           ]
@@ -633,8 +633,8 @@ export default {
   methods: {
     calAverage() {
       //算平均分，最高分，最低分
-      console.log("cal");
-      console.log(this.reslist);
+      //console.log("cal");
+      //console.log(this.reslist);
       let t = this.reslist;
       let len = t.length;
       let sumsum = 0;
@@ -647,7 +647,7 @@ export default {
           i < len;
           i++ //算各种成绩总和，求平均
         ) {
-          console.log(this.reslist[i].student);
+          //console.log(this.reslist[i].student);
           this.nameList.push(this.reslist[i].studentinfo.student.name);
           this.ExamList.push(this.reslist[i].examscore);
           this.SumExamList.push(this.reslist[i].score);
@@ -662,10 +662,10 @@ export default {
         this.DailyExamListAver = Math.floor(sumDaily / len);
         this.CheckExamListAver = Math.floor(sumCheck / len);
         this.ExamListAver = Math.floor(sumExam / len);
-        console.log(this.SumExamListAver);
-        console.log(this.DailyExamListAver);
-        console.log(this.CheckExamListAver);
-        console.log(this.ExamListAver);
+        //console.log(this.SumExamListAver);
+        //console.log(this.DailyExamListAver);
+        //console.log(this.CheckExamListAver);
+        //console.log(this.ExamListAver);
         //高于和低于平均分
         let upperexamnum = 0;
         let lowerexamnum = 0;
@@ -710,50 +710,26 @@ export default {
           } else {
             lowerexamnum += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //大于daily平均分人数
-        ) {
-          if (this.reslist[i].dailyscore >= this.DailyExamListAver) {
+          if (this.reslist[i].dailyscore >= this.DailyExamListAver) {//大于daily平均分人数
             upperdailynum += 1;
           } else {
             lowerdailynum += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //大于check平均分人数
-        ) {
-          if (this.reslist[i].checkscore >= this.CheckExamListAver) {
+          if (this.reslist[i].checkscore >= this.CheckExamListAver) { //大于check平均分人数
             upperchecknum += 1;
           } else {
             lowerchecknum += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //大于score平均分人数
-        ) {
-          if (this.reslist[i].score >= this.SumExamListAver) {
+          if (this.reslist[i].score >= this.SumExamListAver) {//大于score平均分人数
             uppernum += 1;
           } else {
             lowernum += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //考试大于60分人数,各分数段人数
-        ) {
-          if (this.reslist[i].examscore < 60) {
+          if (this.reslist[i].examscore < 60) { //考试大于60分人数,各分数段人数
             lowerexam60num += 1;
           } else if (
             this.reslist[i].examscore < 70 &&
@@ -776,14 +752,8 @@ export default {
           ) {
             upperexam90num += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //总成绩大于60分人数,各分数段人数
-        ) {
-          if (this.reslist[i].score < 60) {
+          if (this.reslist[i].score < 60) { //总成绩大于60分人数,各分数段人数
             lower60num += 1;
           } else if (
             this.reslist[i].score < 70 &&
@@ -806,14 +776,8 @@ export default {
           ) {
             upper90num += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //daily大于60分人数,各分数段人数
-        ) {
-          if (this.reslist[i].dailyscore < 60) {
+          if (this.reslist[i].dailyscore < 60) { //daily大于60分人数,各分数段人数
             lowerdaily60num += 1;
           } else if (
             this.reslist[i].dailyscore < 70 &&
@@ -836,14 +800,8 @@ export default {
           ) {
             upperdaily90num += 1;
           }
-        }
 
-        for (
-          let i = 0;
-          i < len;
-          i++ //check大于60分人数,各分数段人数
-        ) {
-          if (this.reslist[i].checkscore < 60) {
+          if (this.reslist[i].checkscore < 60) { //check大于60分人数,各分数段人数
             lowercheck60num += 1;
           } else if (
             this.reslist[i].checkscore < 70 &&
@@ -867,6 +825,7 @@ export default {
             uppercheck90num += 1;
           }
         }
+
         this.upperExamScoreNum = upperexamnum; //考试成绩
         this.lowerExamScoreNum = lowerexamnum;
         this.upperDailyScoreNum = upperdailynum; //daily成绩
@@ -909,7 +868,7 @@ export default {
     gototeaAddScore(e) {
       //打开添加成绩窗口
       this.dialogVisible = true;
-      console.log(e.studentinfo);
+      //console.log(e.studentinfo);
       this.studentinfo = e.studentinfo;
       this.sumScore = e.score;
       this.dailyscore = e.dailyscore;
@@ -954,5 +913,8 @@ export default {
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 200px);
+}
+.zx{
+  display: inline-block;
 }
 </style>

@@ -43,7 +43,11 @@
   
   <script>
   import axios from "axios";
+  import { ElMessage } from "element-plus";
   export default {
+    components:[
+    ElMessage
+  ],
     data() {
       return {
         formLabelAlign:{
@@ -79,7 +83,7 @@
         if(this.formLabelAlign.uuid=="" || this.formLabelAlign.password == "" ||
           this.formLabelAlign.model == "" || this.formLabelAlign.code == "")
         {
-          alert("请重新填写")
+          ElMessage.error("请重新填写")
         }
         else {
           if(this.formLabelAlign.code.toLowerCase() == this.true_code)
@@ -117,14 +121,14 @@
               this.$cookies.set("password", this.formLabelAlign.password, '1D');
               // console.log(this.$cookies.get("token"));
               this.$router.push("/home");
-              alert("登录成功");
+              ElMessage.success("登录成功");
             }).catch(err=>{
-              console.log(err);
-              alert("登陆失败");
+              //console.log(err);
+              ElMessage.error("登陆失败");
             })
           }
           else{
-            alert("验证码错误");
+            ElMessage.error("验证码错误");
           }
         }
       },

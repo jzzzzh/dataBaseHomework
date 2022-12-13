@@ -139,11 +139,11 @@ export default {
       let token = this.$cookies.get("token");
       let name = this.$cookies.get("uuid");
       let model = this.$cookies.get("model");
-      console.log(token);
+      //console.log(token);
       this.$store.commit("setmyToken", token);
       this.$store.commit("setmyName", name);
       this.$store.commit("setModel", model);
-      console.log(that.$store.state.model)
+      //console.log(that.$store.state.model)
       this.$store.commit("setIsLogin");
     }
   },
@@ -153,7 +153,7 @@ export default {
       if(this.select != null)
       {
         let len = this.select.length;
-        console.log(len);
+        //console.log(len);
         let url = "student/insertCourseByid";
         let config = {
           headers: {
@@ -164,12 +164,12 @@ export default {
         for(let i = 0; i < len; i++)
         {
           let data = new FormData();
-          console.log(this.$store.state.username);
+          //console.log(this.$store.state.username);
           data.append("studentuuid",this.$store.state.username);
           data.append("courseuuid",this.select[i].uuid);
           axios.post(url,data,config).then(
             res=>{
-              console.log(res);
+              //console.log(res);
               ElMessage.success(this.select[i].name + "提交成功");
             }
           ).catch(
@@ -187,7 +187,7 @@ export default {
     handleSelectionChange(val)
     {
       this.select = val;
-      console.log(this.select);
+      //console.log(this.select);
     },
     search()
     {
@@ -234,20 +234,20 @@ export default {
               data2.append('name', this.searchValue);
               axios.post(url2, data2, config).then(
                 res=>{
-                  console.log(res.data.data.teachers);
+                  //console.log(res.data.data.teachers);
                   let len = res.data.data.teachers.length;
-                  console.log(len + "len");
+                  //console.log(len + "len");
                   for(let i = 0; i < len; i++) {
                     let data3 = new FormData();
                     data3.append("teacher_id", res.data.data.teachers[i].uuid * 1);
                     url = "student/selectCourseByteacherID";
                     axios.post(url, data3, config).then(
                       res => {
-                        console.log(res);
+                        //console.log(res);
                         let tmp = this.reslist;
                         let Myreslist = res.data.data.course;
-                        console.log(Myreslist);
-                        console.log(Myreslist.length)
+                        //console.log(Myreslist);
+                        //console.log(Myreslist.length)
                         if (Myreslist.length == undefined) {
                           tmp.push(Myreslist);
                         } else {
@@ -256,12 +256,12 @@ export default {
                             tmp.push(Myreslist[i]);
                           }
                         }
-                        console.log(tmp);
+                        //console.log(tmp);
                         this.reslist = tmp;
-                        console.log(this.reslist);
+                        //console.log(this.reslist);
                       }
                     ).catch(err => {
-                      console.log(err);
+                      //console.log(err);
                     })
                   }
                 }
@@ -270,11 +270,11 @@ export default {
             if(this.value != 5) {
               axios.post(url, data, config).then(
                 res => {
-                  console.log(res);
+                  //console.log(res);
                   let tmp = [];
                   let Myreslist = res.data.data.course;
-                  console.log(Myreslist);
-                  console.log(Myreslist.length)
+                  //console.log(Myreslist);
+                  //console.log(Myreslist.length)
                   if (Myreslist.length == undefined) {
                     tmp.push(Myreslist);
                   } else {
@@ -284,28 +284,28 @@ export default {
                     }
                   }
 
-                  console.log(tmp);
+                  //console.log(tmp);
                   this.reslist = tmp;
-                  console.log(this.reslist);
+                  //console.log(this.reslist);
                 }
               ).catch(err => {
-                console.log(err);
+                //console.log(err);
               })
             }
         }
         else
         {
-          alert("请输入搜索内容");
+          ElMessage.error("请输入搜索内容");
         }
       }
       else
       {
-        alert("请选择查询方式");
+        ElMessage.error("请选择查询方式");
       }
     },
     goToDetail(e)
     {
-      console.log(e);
+      //console.log(e);
       // this.$router.push({
       //   name: 'courseDetail',//页面名字
       //   path:'/courseDetail',//页面路劲 和上面名字任意一个都可以
@@ -324,7 +324,7 @@ export default {
       data.append("id",e.teacher_id*1);
       axios.post(url,data,config).then(
         res=>{
-          console.log(res.data.data.teacher.name);
+          //console.log(res.data.data.teacher.name);
           this.teachername = res.data.data.teacher.name;
         }
       )

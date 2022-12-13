@@ -12,11 +12,11 @@
           <el-sub-menu index="1">
             <template #title>
               <el-icon><location /></el-icon>
-              <span>成绩查询</span>
+              <span>个人管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="1-1">必修成绩查询</el-menu-item>
-              <el-menu-item index="1-2">选修成绩查询</el-menu-item>
+              <el-menu-item index="1-1">修改信息</el-menu-item>
+              <el-menu-item index="1-2">修改密码</el-menu-item>
             </el-menu-item-group>
           </el-sub-menu>
           <!-- <el-sub-menu index="1-4">
@@ -29,25 +29,31 @@
           <span>Navigator Three</span>
         </el-menu-item> -->
 
-        <el-sub-menu index="2">
-            <template #title>
-              <el-icon><location /></el-icon>
-              <span>综合查询</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="2-1">个人信息</el-menu-item>
-              <el-menu-item index="2-2">课程信息</el-menu-item>
-            </el-menu-item-group>
-          </el-sub-menu>
+        <!-- <el-sub-menu index="2"> -->
+            <!-- <template #title> -->
+              <!-- <el-icon><location /></el-icon> -->
+              <!-- <span>综合查询</span> -->
+            <!-- </template> -->
+            <!-- <el-menu-item-group> -->
+              <!-- <el-menu-item index="2-1">个人信息</el-menu-item> -->
+              <!-- <el-menu-item index="2-2">课程信息</el-menu-item> -->
+            <!-- </el-menu-item-group> -->
+          <!-- </el-sub-menu> -->
+          
+
+          <el-menu-item index="2">
+            <el-icon><setting /></el-icon>
+            <span>添加课程</span>
+          </el-menu-item>
 
           <el-menu-item index="3">
             <el-icon><setting /></el-icon>
-            <span>修改密码</span>
+            <span>添加公告</span>
           </el-menu-item>
   
           <el-menu-item index="4">
             <el-icon><setting /></el-icon>
-            <span>课程评价</span>
+            <span>我的课程</span>
           </el-menu-item>
           
 
