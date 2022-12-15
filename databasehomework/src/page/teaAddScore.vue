@@ -1,11 +1,11 @@
 <template>
   <div class="main">
     <div style="text-align: center">
-      <div style="font-weight: bold; font-size: large; margin-bottom: 20px">
+      <div style="font-weight: bold; font-size: large; margin-bottom: 20px; margin-top: 40px">
         课程
       </div>
-      <div>课程名：{{ cousename }}</div>
-      <div>课程号：{{ courseNum }}</div>
+      <div style="margin-bottom: 10px">课程名：{{ cousename }}</div>
+      <div style="margin-bottom: 10px">课程号：{{ courseNum }}</div>
       <div>
         <div style="text-align: center; width: 1200px">
           <el-table :data="reslist" stripe style="width: 100%">
@@ -916,5 +916,6 @@ export default {
 }
 .zx{
   display: inline-block;
+  margin-top: 30px;
 }
 </style>

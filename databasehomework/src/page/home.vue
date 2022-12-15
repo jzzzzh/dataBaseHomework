@@ -362,7 +362,7 @@
           this.student.grade = data.student.grade;
           this.student.class_num = data.student.class_num;
         }).catch(err=>{
-          console.log(err);
+          // console.log(err);
         })
 
         let data2 = new FormData();

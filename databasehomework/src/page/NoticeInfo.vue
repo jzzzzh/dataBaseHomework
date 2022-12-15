@@ -115,7 +115,7 @@ export default {
     let url = "teacher/selectCourseByMainTeacherID";
     axios.post(url, data, config).then(
       res=>{
-        console.log(res.data.data.CourseByMainTeacherID);
+        // console.log(res.data.data.CourseByMainTeacherID);
         this.reslist = res.data.data.CourseByMainTeacherID;
         for(let i = 0; i < this.reslist.length; i++) {
           if (this.reslist[i].Compulsory == 1) {
