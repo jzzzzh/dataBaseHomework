@@ -648,7 +648,7 @@ export default {
           i++ //算各种成绩总和，求平均
         ) {
           console.log(this.reslist[i].student);
-          this.nameList.push(this.reslist[i].studentinfo.student.name);
+          this.nameList.push(this.reslist[i].studentuuid);
           this.ExamList.push(this.reslist[i].examscore);
           this.SumExamList.push(this.reslist[i].score);
           this.DailyExamList.push(this.reslist[i].dailyscore);
