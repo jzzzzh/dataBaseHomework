@@ -59,11 +59,15 @@
 
 <script>
 import axios from "axios";
+import { ElMessage } from "element-plus";
 import { h } from 'vue'
 import { ElNotification } from 'element-plus'
 
 export default {
   name: "register",
+  components:[
+    ElMessage
+  ],
   data(){
     return{
       model:null,
@@ -119,8 +123,8 @@ export default {
             data.append("password", this.password);
           }
           axios.post(url,data,config).then(res=>{
-            console.log(res);
-            alert("注册成功");
+            //console.log(res);
+            ElMessage.success("注册成功");
             ElNotification({
               title: '您的账号',
               message: res.data.data.id,
@@ -128,16 +132,16 @@ export default {
             })
             this.$router.push('/');
           }).catch(err=>{
-            console.log(err);
-            alert("注册失败");
+            //console.log(err);
+            ElMessage.error("注册失败");
           })
         }
         else
         {
-          alert("密码不同");
+          ElMessage.error("密码不同");
         }}
       else {
-        alert("验证码错误");
+        ElMessage.error("验证码错误");
       }
     },
     draw(show_num)

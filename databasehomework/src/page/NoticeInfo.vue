@@ -69,6 +69,9 @@ import { ElMessage } from "element-plus";
 
 export default {
   name: "NoticeInfo",
+  components:[
+    ElMessage
+  ],
   data(){
     return{
       NoticeInfo : {
@@ -87,18 +90,18 @@ export default {
   },
   mounted() {
     this.NoticeInfo = JSON.parse(this.$route.query.NoticeInfo);
-    console.log(this.NoticeInfo);
+    //console.log(this.NoticeInfo);
     let that = this;
     if(this.$cookies.get("token")!= null && this.$cookies.get("uuid")!= null && this.$cookies.get("model")!= null)
     {
       let token = this.$cookies.get("token");
       let name = this.$cookies.get("uuid");
       let model = this.$cookies.get("model");
-      console.log(token);
+      //console.log(token);
       this.$store.commit("setmyToken", token);
       this.$store.commit("setmyName", name);
       this.$store.commit("setModel", model);
-      console.log(that.$store.state.model)
+      //console.log(that.$store.state.model)
       this.$store.commit("setIsLogin");
     }
     let data = new FormData();
@@ -124,7 +127,7 @@ export default {
       }
     ).catch(
       err=>{
-        console.log(err);
+        //console.log(err);
         ElMessage.error("获取失败");
       }
     )
@@ -155,7 +158,7 @@ export default {
         )
       }
       else {
-        console.log(this.classuuid);
+        //console.log(this.classuuid);
         if(this.classuuid.length > 0)
         {
           let url2 = "teacher/selectScoreByCourseID";
@@ -171,7 +174,7 @@ export default {
             data2.append("courseuuid", this.classuuid[i].uuid* 1);
             axios.post(url2,data2,config2).then(
               res=>{
-                console.log(res.data.data);
+                //console.log(res.data.data);
                 if(res.data.data.score.length > 0)
                 {
                   for(let j = 0; j < res.data.data.score.length; j++)
@@ -183,15 +186,15 @@ export default {
               }
             ).catch(
               err=>{
-                console.log(err);
+                //console.log(err);
               }
             )
           }
-          console.log(this.stuidlist);
+          //console.log(this.stuidlist);
           let tmp = new Set(this.stuidlist);
-          console.log(tmp);
+          //console.log(tmp);
           let tmpp = Array.from(tmp);
-          console.log(tmpp);
+          //console.log(tmpp);
           this.stuidlist = tmpp;
           if(this.stuidlist.length > 0)
           {
@@ -221,7 +224,7 @@ export default {
     },
     handleSelectionChange(e)
     {
-      console.log(e);
+      //console.log(e);
       this.classuuid = e;
     },
     deleteNotice(){

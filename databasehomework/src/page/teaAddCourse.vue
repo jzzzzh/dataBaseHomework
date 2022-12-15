@@ -70,11 +70,11 @@ export default {
             data.append("credit", this.credit);
             data.append("teacher_id", this.$cookies.get("uuid"));
             axios.post(url,data,config).then(res=>{
-            console.log(res);
+            //console.log(res);
             // alert("添加成功");
               ElMessage.success("添加成功")
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
             // alert("添加失败");
               ElMessage.error("添加失败");
           })

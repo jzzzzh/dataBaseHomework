@@ -51,14 +51,14 @@ export default {
             data.append("teacheruuid", this.$cookies.get("uuid"));
             data.append("teachername", this.name);
             axios.post(url,data,config).then(res=>{
-            console.log(res);
+            //console.log(res);
             // alert("发布成功");
               ElMessage.success("发布成功");
               this.title = "";
               this.detail = "";
               this.name = "";
           }).catch(err=>{
-            console.log(err);
+            //console.log(err);
             // alert("发布失败");
               ElMessage.success("发布失败");
           })

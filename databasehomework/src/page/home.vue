@@ -325,11 +325,11 @@
         let token = this.$cookies.get("token");
         let name = this.$cookies.get("uuid");
         let model = this.$cookies.get("model");
-        console.log(token);
+        //console.log(token);
         this.$store.commit("setmyToken", token);
         this.$store.commit("setmyName", name);
         this.$store.commit("setModel", model);
-        console.log(that.$store.state.model)
+        //console.log(that.$store.state.model)
         this.$store.commit("setIsLogin");
       }
       if(that.$store.state.model == 0)
@@ -342,7 +342,7 @@
       if(this.isStudent == true)
       {
         let data = new FormData();
-        console.log(this.$store.state.username);
+        //console.log(this.$store.state.username);
         data.append("id", this.$store.state.username * 1);
         let config = {
           headers: {
@@ -353,7 +353,7 @@
         let url = "";
         url = 'student/findByID';
         axios.post(url,data,config).then(res=>{
-          console.log(res);
+          //console.log(res);
           let data = res.data.data;
           this.student.major = data.student.major;
           this.student.sex = data.student.sex;
@@ -376,7 +376,7 @@
         let url2 = "";
         url2 = 'student/selectNoticeByStuID';
         axios.post(url2,data2, config2).then(res=>{
-          console.log(res.data.data.notices[1]);
+          //console.log(res.data.data.notices[1]);
           // console.log("len");
           // console.log(Object.keys(res.data.data.notices).length)
           that.TotalNum = Object.keys(res.data.data.notices).length;
@@ -429,7 +429,7 @@
           }
 
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       }
       else {
@@ -444,7 +444,7 @@
         let url = "";
         url = 'teacher/findByID';
         axios.post(url,data,config).then(res=>{
-          console.log(res)
+          //console.log(res)
           let data = res.data.data;
           this.teacher.major = data.teacher.major;
           this.teacher.sex = data.teacher.sex;
@@ -452,7 +452,7 @@
           this.teacher.uuid = data.teacher.uuid;
           this.teacher.age = data.teacher.age;
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
 
         let data2 = new FormData();
@@ -467,7 +467,7 @@
         let url2 = "";
         url2 = 'teacher/selectNoticeByTeaID';
         axios.post(url2,data2, config2).then(res=>{
-          console.log(res);
+          //console.log(res);
           that.TotalNum = Object.keys(res.data.data.notices).length;
           let curr = that.currentPage;
           let pagesize = that.pageSize;
@@ -523,7 +523,7 @@
 
 
         }).catch(err=>{
-          console.log(err);
+          //console.log(err);
         })
       }
 
@@ -559,7 +559,7 @@
         }
       },
       deleteNotice(e){
-        console.log(e);
+        //console.log(e);
         let data = new FormData();
         let url = "teacher/deleteNoticeByNoticeID";
         let config = {
@@ -624,10 +624,10 @@
         }
         axios.post(url,data,config).then(res=>{
           // console.log(res);
-          alert("修改成功");
+          ElMessage.success("修改成功");
         }).catch(err=>{
           // console.log(err);
-          alert("修改失败");
+          ElMessage.error("修改失败");
         })
       },
       handleChange()
