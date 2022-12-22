@@ -11,7 +11,7 @@
                  label-position="right"
                  label-width="100px"
                  :model="formLabelAlign"
-                 style="max-width: 460px; margin-bottom: 30px; height: 550px"
+                 style="max-width: 460px; margin-bottom: 30px; height: 500px"
         >
           <el-form-item label="身份">
             <el-select v-model="model" placeholder="选择身份">
