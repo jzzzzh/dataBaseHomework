@@ -8,7 +8,7 @@
       <div style="margin-bottom: 10px">课程号：{{ courseNum }}</div>
       <div>
         <div style="text-align: center; width: 1200px">
-          <el-table :data="reslist" stripe style="width: 100%">
+          <el-table :data="reslist" stripe style="width: 100%" height="250">
             <el-table-column
               prop="studentinfo.student.uuid"
               label="id"

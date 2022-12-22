@@ -12,7 +12,13 @@ import teaGetCourse from "@/page/teaGetCourse";
 import teaAddScore from "@/page/teaAddScore";
 import NoticeInfo from "@/page/NoticeInfo";
 import teaGetteaClassScore from "@/page/teaGetteaClassScore";
+import stuNoticeInfo from "@/page/stuNoticeInfo";
 const routes = [
+  {
+    path: '/stuNoticeInfo',
+    name: "stuNoticeInfo",
+    component: stuNoticeInfo
+  },
   {
     path: '/ChangePassword',
     name: 'ChangePassword',

@@ -99,7 +99,7 @@
 
 
       <div style="margin: 20px">
-        <el-card class="box-card" shadow="hover" v-show="Notice.isShow1">
+        <el-card class="box-card" shadow="hover" >
           <template #header>
             <div class="card-header">
               <span>公告栏</span>
@@ -108,7 +108,7 @@
           <div>
             <el-row :gutter="20">
               <el-col :span="8">
-                <el-card class="box-card">
+                <el-card class="box-card" v-show="Notice.isShow1">
                 <template #header>
                   <div class="card-header">
                     <span>{{NoticeDetail.Notice1.title}}</span>
@@ -119,6 +119,7 @@
                   <p>{{NoticeDetail.Notice1.teachername}}</p>
                   <p>{{NoticeDetail.Notice1.time}}</p>
                 </div>
+                  <el-button v-show="isStudent" type="primary" @click="enterstuDetail(1)">进入</el-button>
                   <el-button v-show="!isStudent" type="primary" @click="enterDetail(1)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
@@ -143,6 +144,7 @@
                     <p>{{NoticeDetail.Notice2.teachername}}</p>
                     <p>{{NoticeDetail.Notice2.time}}</p>
                   </div>
+                  <el-button v-show="isStudent" type="primary" @click="enterstuDetail(2)">进入</el-button>
                   <el-button v-show="!isStudent" type="primary" @click="enterDetail(2)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
@@ -166,6 +168,7 @@
                     <p>{{NoticeDetail.Notice3.teachername}}</p>
                     <p>{{NoticeDetail.Notice3.time}}</p>
                   </div>
+                  <el-button v-show="isStudent" type="primary" @click="enterstuDetail(3)">进入</el-button>
                   <el-button v-show="!isStudent" type="primary" @click="enterDetail(3)">进入</el-button>
                   <el-popconfirm title="是否要删除"
                                  confirm-button-text="是"
@@ -285,9 +288,9 @@
         pageSize: 3,
         TotalNum: 0,
         Notice:{
-          isShow1: true,
-          isShow2: true,
-          isShow3: true,
+          isShow1: false,
+          isShow2: false,
+          isShow3: false,
         },
         NoticeDetail:{
           Notice1:{
@@ -529,6 +532,35 @@
 
     },
     methods: {
+      enterstuDetail(e){
+        if(e == 1)
+        {
+          this.$router.push({
+            path:"/stuNoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice1)
+            }
+          })
+        }
+        else if(e == 2)
+        {
+          this.$router.push({
+            path:"/stuNoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice2)
+            }
+          })
+        }
+        else
+        {
+          this.$router.push({
+            path:"/stuNoticeInfo",
+            query:{
+              NoticeInfo: JSON.stringify(this.NoticeDetail.Notice3)
+            }
+          })
+        }
+      },
       enterDetail(e){
         if(e == 1)
         {

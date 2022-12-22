@@ -44,7 +44,7 @@ export default {
           token: this.$cookies.get("token")
         }
       };
-
+      if(this.title != ""){
       url = "teacher/addNotice";
             data.append("title", this.title);
             data.append("detail", this.detail);
@@ -62,6 +62,11 @@ export default {
             // alert("发布失败");
               ElMessage.success("发布失败");
           })
+        }
+      else
+      {
+        ElMessage.warning("请输入信息");
+      }
     }
   }
 };
