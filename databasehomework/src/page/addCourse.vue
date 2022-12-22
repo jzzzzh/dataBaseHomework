@@ -52,7 +52,7 @@
           <el-descriptions-item label="专业">{{info.major}}</el-descriptions-item>
           <el-descriptions-item label="是否必修">{{info.Compulsory == 1?"是":"否"}}</el-descriptions-item>
           <el-descriptions-item label="学分">{{info.credit}}</el-descriptions-item>
-          <el-descriptions-item label="老师评分">{{teacherScore}}</el-descriptions-item>
+<!--          <el-descriptions-item label="老师评分">{{teacherScore}}</el-descriptions-item>-->
         </el-descriptions>
       </div>
       <template #footer>
