@@ -169,7 +169,7 @@ export default {
           data.append("courseuuid",this.select[i].uuid);
           axios.post(url,data,config).then(
             res=>{
-              console.log(res);
+              // console.log(res);
               if(res.data.code == 101)
               {
                 ElMessage.error(this.select[i].name + "提交失败,人数已满");
